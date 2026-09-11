@@ -1,10 +1,5 @@
 ﻿#!/bin/sh
-
 set -eu
-
-DB_USER="${DB_USER:-app}"
-DB_PASSWORD="${DB_PASSWORD:-app}"
-DB_NAME="${DB_NAME:-app}"
 
 psql -v ON_ERROR_STOP=1 -U "$POSTGRES_USER" <<-EOF
 CREATE USER $DB_USER;
@@ -19,11 +14,9 @@ EOF
 psql -v ON_ERROR_STOP=1 -U "$POSTGRES_USER" -d "$DB_NAME" <<-EOF
 ALTER SCHEMA public OWNER TO $DB_USER;
 GRANT ALL ON SCHEMA public TO $DB_USER;
-ALTER DATABASE $DB_NAME SET app.trust_center_base_domain TO 'app.localhost';
 EOF
 
 psql -v ON_ERROR_STOP=1 -U "$POSTGRES_USER" -d "${DB_NAME}_test" <<-EOF
 ALTER SCHEMA public OWNER TO $DB_USER;
 GRANT ALL ON SCHEMA public TO $DB_USER;
-ALTER DATABASE ${DB_NAME}_test SET app.trust_center_base_domain TO 'app.localhost';
 EOF
