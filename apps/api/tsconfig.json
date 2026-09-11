@@ -1,0 +1,19 @@
+{
+  "extends": "@root/tsconfig/base.json",
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "types": ["hot-hook/import-meta"],
+    "paths": {
+      "#config/*": ["./src/config/*"],
+      "#router/*": ["./src/router/*"],
+      "#controllers/*": ["./src/controllers/*"],
+      "#actions/*": ["./src/actions/*"]
+    },
+    "target": "esnext",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "rewriteRelativeImportExtensions": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true
+  }
+}

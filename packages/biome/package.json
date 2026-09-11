@@ -1,0 +1,15 @@
+{
+  "name": "@root/biome-config",
+  "version": "1.0.0",
+  "description": "root default biomejs configs",
+  "files": [
+    "common.json"
+  ],
+  "exports": {
+    "./biome": "./common.json"
+  },
+  "peerDependencies": {
+    "@biomejs/biome": "^1.9.4"
+  },
+  "license": "MIT"
+}

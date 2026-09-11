@@ -1,0 +1,19 @@
+{
+  "name": "@root/frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "check": "tsc --noEmit",
+    "lint": "biome check ."
+  },
+  "devDependencies": {
+    "@root/biome-config": "workspace:*",
+    "@root/tsconfig": "workspace:*",
+    "typescript": "~6.0.2",
+    "vite": "^8.3.0"
+  }
+}

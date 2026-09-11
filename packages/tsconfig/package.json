@@ -1,0 +1,10 @@
+{
+  "name": "@root/tsconfig",
+  "version": "1.0.0",
+  "description": "root default typescript configs",
+  "files": [
+    "base.json",
+    "library.json"
+  ],
+  "license": "MIT"
+}
