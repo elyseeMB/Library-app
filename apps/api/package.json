@@ -11,7 +11,13 @@
     "typecheck": "tsc --noEmit",
     "format": "biome check --write .",
     "lint": "biome check .",
-    "format:check": "biome check ."
+    "format:check": "biome check .",
+    "db:migration": "kysely migrate make",
+    "db:migrate": "node --env-file=../../.env ./node_modules/kysely-ctl/dist/bin.mjs migrate latest",
+    "db:rollback": "node --env-file=../../.env ./node_modules/kysely-ctl/dist/bin.mjs migrate down",
+    "db:generate": "kysely-codegen --dialect postgres --url \"postgresql://library:library@localhost:5432/library\" --out-file ./src/types/db.ts",
+    "db:seed": "node --env-file=../../.env --import=tsx ./src/database/seeds/__seed__.ts",
+    "db:sync": "pnpm db:migrate && pnpm db:generate && pnpm db:seed"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +26,9 @@
     "#config/*": "./src/config/*.js",
     "#router/*": "./src/router/*.js",
     "#controllers/*": "./src/controllers/*.js",
-    "#actions/*": "./src/actions/*.js"
+    "#actions/*": "./src/actions/*.js",
+    "#models/*": "./src/models/*.js",
+    "#types/*": "./src/types/*.js"
   },
   "hotHook": {
     "boundaries": [
@@ -33,19 +41,27 @@
     ]
   },
   "dependencies": {
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "pino": "^10.3.1"
+    "kysely": "^0.29.5",
+    "pg": "^8.23.0",
+    "pino": "^10.3.1",
+    "zod": "^4.6.2"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.6.0",
     "@hot-hook/runner": "^1.0.0",
+    "@root/biome-config": "workspace:*",
+    "@root/tsconfig": "workspace:*",
     "@types/express": "^5.0.6",
     "@types/node": "^26.4.0",
+    "@types/pg": "^8.23.1",
     "hot-hook": "^1.0.0",
+    "kysely-codegen": "^0.20.0",
+    "kysely-ctl": "^0.21.0",
     "pino-http": "^11.0.0",
     "pino-pretty": "^13.1.3",
     "tsx": "^4.23.13",
-    "typescript": "^7.0.2",
-    "@root/biome-config": "workspace:*",
-    "@root/tsconfig": "workspace:*"
+    "typescript": "^7.0.2"
   }
 }
