@@ -10,7 +10,6 @@ await hot.init({
 });
 
 const app: Express = express();
-
 app.use(
   pinoHttp({
     logger,

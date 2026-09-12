@@ -15,3 +15,12 @@ export function Get(path: string) {
     });
   };
 }
+
+export function Post(path: string) {
+  return (target: Function) => {
+    ROUTE_META.set(target, {
+      method: 'post',
+      path,
+    });
+  };
+}

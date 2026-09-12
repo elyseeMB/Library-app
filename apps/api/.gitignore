@@ -17,3 +17,7 @@ Thumbs.db
 *.tsbuildinfo
 
 .turbo
+
+
+kysely.config.js
+kysely.config.js.map
