@@ -25,6 +25,6 @@ app.use(
 );
 
 const { registerRoutes } = await import('./routes.ts');
-await registerRoutes().boot(app);
+await registerRoutes(app);
 
 app.listen(3000, () => logger.info('Server on http://localhost:3000'));

@@ -1,5 +1,5 @@
 import { BaseAction } from '#actions/base_action';
-import { Book, type NewBook } from '#models/book';
+import { Book, type NewBook } from '../../repositories/book_repository.ts';
 import { Get } from '#config/decorators';
 import type { Request, Response } from 'express';
 import z from 'zod';

@@ -28,7 +28,8 @@
     "#controllers/*": "./src/controllers/*.js",
     "#actions/*": "./src/actions/*.js",
     "#models/*": "./src/models/*.js",
-    "#types/*": "./src/types/*.js"
+    "#types/*": "./src/types/*.js",
+    "#repositories/*": "./src/repositories/*.js"
   },
   "hotHook": {
     "boundaries": [

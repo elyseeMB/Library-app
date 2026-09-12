@@ -1,10 +1,8 @@
 import type { Insertable, Kysely, Selectable, Updateable } from 'kysely';
+import { db as defaultDb } from '#config/database';
+import type { DB } from '#types/db';
 
-import { db as defaultDb } from '../config/database.ts';
-
-import type { DB } from '../types/db.ts';
-
-export default class BaseModel<TB extends keyof DB> {
+export class BaseRepository<TB extends keyof DB> {
   constructor(
     protected table: TB,
     protected db: Kysely<DB> = defaultDb,

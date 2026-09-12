@@ -1,7 +1,5 @@
 import type { NextFunction, Request, Response } from 'express';
 
-import { type HttpMethod, ROUTE_META } from '#config/decorators';
-
 export interface BaseActionnable {
   handle?(...args: any[]): any;
   asController?(
@@ -20,16 +18,9 @@ interface StaticAction<T extends BaseAction> {
 }
 
 export abstract class BaseAction implements BaseActionnable {
-  static [ROUTE_META]: {
-    method: (typeof HttpMethod)[number];
-    path: string;
-  };
-
   handle?(...args: any[]): any;
   asController?(req: Request, res: Response, data?: unknown, ...args: any[]): Promise<any> | any;
-  validator?: {
-    parse: (input: unknown) => any;
-  };
+  validator?: { parse: (input: unknown) => any };
 
   static async run<T extends { handle: (...args: any[]) => any }>(
     this: new (

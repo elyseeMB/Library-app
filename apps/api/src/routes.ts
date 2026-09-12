@@ -1,9 +1,10 @@
-import { routes } from '#router/builder';
+import type { Express } from 'express';
+import { Router } from 'express';
+import { loadRoute } from '#config/routing';
 
-export function registerRoutes() {
-  return routes((r) => {
-    r.group('/api/v1', (v1) => {
-      // v1.mount('/', userRoutes())
-    });
-  });
+export async function registerRoutes(app: Express) {
+  const api = Router();
+
+  await loadRoute(api, () => import('#actions/books/store_book'));
+  app.use('/api/v1', api);
 }

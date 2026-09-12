@@ -18,7 +18,7 @@ const pool = new Pool({
 });
 
 pool.on('error', (err) => {
-  console.error('[PG POOL] Erreur inattendue sur une connexion idle', err);
+  console.error('[PG POOL] Error', err);
 });
 
 export const db = new Kysely<DB>({
