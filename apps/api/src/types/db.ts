@@ -11,14 +11,59 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
 
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
-export interface Books {
-  author: string;
+export interface Authors {
+  bio: string | null;
   created_at: Generated<Timestamp>;
-  id: Generated<number>;
-  isbn: string | null;
+  email: string;
+  id: Generated<string>;
+  name: string;
+  nationality: string;
+  phone: string | null;
+  updated_at: Generated<Timestamp>;
+  website: string | null;
+}
+
+export interface Books {
+  author_id: string;
+  created_at: Generated<Timestamp>;
+  id: Generated<string>;
+  publication_year: number;
+  status: Generated<string>;
   title: string;
+  updated_at: Generated<Timestamp>;
+}
+
+export interface LoanHistory {
+  action: string;
+  id: Generated<string>;
+  loan_id: string;
+  occurred_at: Generated<Timestamp>;
+}
+
+export interface Loans {
+  book_id: string;
+  borrowed_at: Generated<Timestamp>;
+  created_at: Generated<Timestamp>;
+  due_date: Timestamp;
+  id: Generated<string>;
+  member_id: string;
+  returned_at: Timestamp | null;
+  updated_at: Generated<Timestamp>;
+}
+
+export interface Members {
+  created_at: Generated<Timestamp>;
+  email: string;
+  id: Generated<string>;
+  name: string;
+  phone: string | null;
+  updated_at: Generated<Timestamp>;
 }
 
 export interface DB {
+  authors: Authors;
   books: Books;
+  loan_history: LoanHistory;
+  loans: Loans;
+  members: Members;
 }

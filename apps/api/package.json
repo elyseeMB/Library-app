@@ -13,10 +13,10 @@
     "lint": "biome check .",
     "format:check": "biome check .",
     "db:migration": "kysely migrate make",
-    "db:migrate": "node --env-file=.env ./node_modules/kysely-ctl/dist/bin.mjs migrate latest",
-    "db:rollback": "node --env-file=.env ./node_modules/kysely-ctl/dist/bin.mjs migrate down",
+    "db:migrate": "node --env-file=../../.env ./node_modules/kysely-ctl/dist/bin.mjs migrate latest",
+    "db:rollback": "node --env-file=../../.env ./node_modules/kysely-ctl/dist/bin.mjs migrate down",
     "db:generate": "kysely-codegen --dialect postgres --url \"postgresql://library:library@localhost:5432/library\" --out-file ./src/types/db.ts",
-    "db:seed": "node --env-file=.env --import=tsx ./src/database/seeds/__seed__.ts",
+    "db:seed": "node --env-file=../../.env --import=tsx ./src/database/seeds/__seed__.ts",
     "db:sync": "pnpm db:migrate && pnpm db:generate && pnpm db:seed"
   },
   "keywords": [],
@@ -29,7 +29,9 @@
     "#actions/*": "./src/actions/*.js",
     "#models/*": "./src/models/*.js",
     "#types/*": "./src/types/*.js",
-    "#repositories/*": "./src/repositories/*.js"
+    "#repositories/*": "./src/repositories/*.js",
+    "#enums/*": "./src/enums/*.js",
+    "#database/factories/*": "./src/database/factories/*.js"
   },
   "hotHook": {
     "boundaries": [
