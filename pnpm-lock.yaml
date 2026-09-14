@@ -20,6 +20,9 @@ importers:
 
   apps/api:
     dependencies:
+      '@vinejs/vine':
+        specifier: ^4.4.0
+        version: 4.4.0
       dotenv:
         specifier: ^17.4.2
         version: 17.4.2
@@ -444,6 +447,9 @@ packages:
   '@poppinss/string@1.7.2':
     resolution: {integrity: sha512-A182GLDfi36iDCbhDrHB0xzrPM1fO3GHnhCDIdadf8C6eycgct4m7zusbLwEh6GPaj2Pz5BVos7XK16w7tZ7wQ==}
 
+  '@poppinss/types@1.2.1':
+    resolution: {integrity: sha512-qUYnzl0m9HJTWsXtr8Xo7CwDx6wcjrvo14bOVbIMIlKJCzKrm3LX55dRTDr1/x4PpSvKVgmxvC6Ly2YiqXKOvQ==}
+
   '@poppinss/utils@6.10.1':
     resolution: {integrity: sha512-da+MMyeXhBaKtxQiWPfy7+056wk3lVIhioJnXHXkJ2/OHDaZfFcyKHNl1R06sdYO8lIRXcXdoZ6LO2ARmkAREA==}
     engines: {node: '>=18.16.0'}
@@ -547,6 +553,9 @@ packages:
   '@rolldown/pluginutils@1.0.1':
     resolution: {integrity: sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==}
 
+  '@standard-schema/spec@1.1.0':
+    resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
+
   '@turbo/darwin-64@2.10.12':
     resolution: {integrity: sha512-9nKgKoF6ZOUsM+or0OtNf+TTJSfGvDNP7ZFv/ZGWVwOSCkumyctQiTeHwB4UNljHTnC41AqylgbunLDHoccNrA==}
     cpu: [x64]
@@ -615,6 +624,9 @@ packages:
 
   '@types/serve-static@2.2.0':
     resolution: {integrity: sha512-8mam4H1NHLtu7nmtalF7eyBH14QyOASmcxHhSfEoRyr0nP/YdoesEtU+uSRvMe96TW/HPTtkoKqQLl53N7UXMQ==}
+
+  '@types/validator@13.15.10':
+    resolution: {integrity: sha512-T8L6i7wCuyoK8A/ZeLYt1+q0ty3Zb9+qbSSvrIVitzT3YjZqkTZ40IbRsPanlB4h1QB3JVL1SYCdR6ngtFYcuA==}
 
   '@typescript/typescript-aix-ppc64@7.0.2':
     resolution: {integrity: sha512-MTKKkWB7p/0E9xi1d1tHtZ5PiLkGEMIq88pK2CubZjOsLtYTLqhgIgi6zepFa+9GHZ6h05NMCkQxGKiPXMxXtQ==}
@@ -736,6 +748,14 @@ packages:
     cpu: [x64]
     os: [win32]
 
+  '@vinejs/compiler@4.1.3':
+    resolution: {integrity: sha512-UyH7Zn8dkTMLeU+PF2WjCnWkFb2qYaOxAcvp/uXW0njtKNcJOnVJaPsnWYwqewkTcHN47yvOdzosj3kj3RAP5w==}
+    engines: {node: '>=18.0.0'}
+
+  '@vinejs/vine@4.4.0':
+    resolution: {integrity: sha512-cfnNXjs9+f+22d3Eb8koyg2qlCbaT394XBlL4AeEr1WM+NH1omFcXwe1zrkW4hHwPDSfUd4lFUdNO6E+YnTeWQ==}
+    engines: {node: '>=18.16.0'}
+
   accepts@2.0.0:
     resolution: {integrity: sha512-5cvg6CtKwfgdmVqY1WIiXKc3Q1bkRqGLi+2W/6ao+6Y7gu/RCwRuAhGEzh5B4KlszSuTLgZYuqFqo5bImjNKng==}
     engines: {node: '>= 0.6'}
@@ -805,6 +825,10 @@ packages:
   callsites@3.1.0:
     resolution: {integrity: sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==}
     engines: {node: '>=6'}
+
+  camelcase@9.0.0:
+    resolution: {integrity: sha512-TO9xmyXTZ9HUHI8M1OnvExxYB0eYVS/1e5s7IDMTAoIcwUd+aNcFODs6Xk83mobk0velyHFQgA1yIrvYc6wclw==}
+    engines: {node: '>=20'}
 
   case-anything@3.1.2:
     resolution: {integrity: sha512-wljhAjDDIv/hM2FzgJnYQg90AWmZMNtESCjTeLH680qTzdo0nErlCxOmgzgX4ZsZAtIvqHyD87ES8QyriXB+BQ==}
@@ -896,6 +920,9 @@ packages:
   dateformat@4.6.3:
     resolution: {integrity: sha512-2P0p0pFGzHS5EMnhdxQi7aJN+iMheud0UhG4dlE1DLAlvL8JHjJJTX/CSm4JXwV0Ka5nGk3zC5mcb5bUQUxxMA==}
 
+  dayjs@1.11.23:
+    resolution: {integrity: sha512-QDTCU0M0MxR3hQfnlDJfwekQiaanm1ubOD231u73WBckQ/fsamwRLiE2GBz6D3a/xF1NgfiDLJjXBa1hYOYTtQ==}
+
   debug@4.4.3:
     resolution: {integrity: sha512-RGwwWnwQvkVfavKVt22FGLw+xYSdzARwm0ru6DhTVA3umU5hZc28V3kO4stgYryrTlLpuvgI9GiijltAjNbcqA==}
     engines: {node: '>=6.0'}
@@ -922,6 +949,9 @@ packages:
   diff@8.0.4:
     resolution: {integrity: sha512-DPi0FmjiSU5EvQV0++GFDOJ9ASQUVFh5kD+OzOnYdi7n3Wpm9hWWGfB/O2blfHcMVTL5WkQXSnRiK9makhrcnw==}
     engines: {node: '>=0.3.1'}
+
+  dlv@1.1.3:
+    resolution: {integrity: sha512-+HlytyjlPKnIG8XuRG8WvmBP8xs8P71y+SKKS6ZXWoEgLuePxtDoUEiH7WkdePWrQ5JBpE6aoVqfZfJUQkjXwA==}
 
   dotenv-expand@12.0.3:
     resolution: {integrity: sha512-uc47g4b+4k/M/SeaW1y4OApx+mtLWl92l5LMPP0GNXctZqELk+YGgOPIIC5elYmUH4OuoK3JLhuRUYegeySiFA==}
@@ -1414,6 +1444,10 @@ packages:
     resolution: {integrity: sha512-RWk+PI433eESQ7ounYxIp67CYuVsS1uYSonX3kA6ps/3LWfjVQa/ptEg6Y3T6uAMq1mWpX9PQ+qx+QaHpsc7gQ==}
     engines: {node: ^20.17.0 || >=22.9.0}
 
+  normalize-url@8.1.1:
+    resolution: {integrity: sha512-JYc0DPlpGWB40kH5g07gGTrYuMqV653k3uBKY6uITPWds3M0ov3GaWGp9lbE3Bzngx8+XkfzgvASb9vk9JDFXQ==}
+    engines: {node: '>=14.16'}
+
   npm-run-path@5.3.0:
     resolution: {integrity: sha512-ppwTtiJZq0O/ai0z7yfudtBpWIoxM8yE6nHi1X47eFR2EWORqfbu6CnPlNsjeN683eT0qG6H/Pyf9fCcvjnnnQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
@@ -1873,6 +1907,10 @@ packages:
   validate-npm-package-license@3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
 
+  validator@13.15.35:
+    resolution: {integrity: sha512-TQ5pAGhd5whStmqWvYF4OjQROlmv9SMFVt37qoCBdqRffuuklWYQlCNnEs2ZaIBD1kZRNnikiZOS1eqgkar0iw==}
+    engines: {node: '>= 0.10'}
+
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
@@ -2188,6 +2226,8 @@ snapshots:
       pluralize: 8.0.0
       slugify: 1.6.9
 
+  '@poppinss/types@1.2.1': {}
+
   '@poppinss/utils@6.10.1':
     dependencies:
       '@poppinss/exception': 1.2.3
@@ -2243,6 +2283,8 @@ snapshots:
     optional: true
 
   '@rolldown/pluginutils@1.0.1': {}
+
+  '@standard-schema/spec@1.1.0': {}
 
   '@turbo/darwin-64@2.10.12':
     optional: true
@@ -2313,6 +2355,8 @@ snapshots:
       '@types/http-errors': 2.0.5
       '@types/node': 26.5.1
 
+  '@types/validator@13.15.10': {}
+
   '@typescript/typescript-aix-ppc64@7.0.2':
     optional: true
 
@@ -2372,6 +2416,21 @@ snapshots:
 
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
+
+  '@vinejs/compiler@4.1.3': {}
+
+  '@vinejs/vine@4.4.0':
+    dependencies:
+      '@poppinss/macroable': 1.1.2
+      '@poppinss/types': 1.2.1
+      '@standard-schema/spec': 1.1.0
+      '@types/validator': 13.15.10
+      '@vinejs/compiler': 4.1.3
+      camelcase: 9.0.0
+      dayjs: 1.11.23
+      dlv: 1.1.3
+      normalize-url: 8.1.1
+      validator: 13.15.35
 
   accepts@2.0.0:
     dependencies:
@@ -2449,6 +2508,8 @@ snapshots:
 
   callsites@3.1.0: {}
 
+  camelcase@9.0.0: {}
+
   case-anything@3.1.2: {}
 
   chalk@4.1.2:
@@ -2522,6 +2583,8 @@ snapshots:
 
   dateformat@4.6.3: {}
 
+  dayjs@1.11.23: {}
+
   debug@4.4.3:
     dependencies:
       ms: 2.1.3
@@ -2535,6 +2598,8 @@ snapshots:
   detect-libc@2.1.2: {}
 
   diff@8.0.4: {}
+
+  dlv@1.1.3: {}
 
   dotenv-expand@12.0.3:
     dependencies:
@@ -2977,6 +3042,8 @@ snapshots:
       hosted-git-info: 9.0.3
       semver: 7.8.5
       validate-npm-package-license: 3.0.4
+
+  normalize-url@8.1.1: {}
 
   npm-run-path@5.3.0:
     dependencies:
@@ -3494,6 +3561,8 @@ snapshots:
     dependencies:
       spdx-correct: 3.2.0
       spdx-expression-parse: 3.0.1
+
+  validator@13.15.35: {}
 
   vary@1.1.2: {}
 

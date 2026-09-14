@@ -1,22 +1,19 @@
+import type { Infer } from '@vinejs/vine/types';
 import type { Request, Response } from 'express';
-import z from 'zod';
 import { BaseAction } from '#actions/base_action';
 import { Post } from '#config/decorators';
-import { Book, type NewBook } from '#repositories/book_repository';
+import { Book as BookRepository, type NewBook } from '#repositories/book_repository';
+import { storeBookValidator } from '#validators/books_validator';
 
 @Post('/book')
 export default class StoreBook extends BaseAction {
-  validator = z.object({
-    title: z.string().min(1),
-    author: z.string().min(1),
-    isbn: z.string().optional(),
-  });
+  validator = storeBookValidator;
 
-  async asController(_req: Request, _res: Response, data?: unknown) {
+  async asController(_req: Request, _res: Response, data?: Infer<typeof storeBookValidator>) {
     return this.handle(data as NewBook);
   }
 
   async handle(args: NewBook) {
-    return await Book.create({ ...args });
+    return await BookRepository.create({ ...args });
   }
 }

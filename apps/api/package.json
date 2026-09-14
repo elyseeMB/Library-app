@@ -31,6 +31,7 @@
     "#types/*": "./src/types/*.js",
     "#repositories/*": "./src/repositories/*.js",
     "#enums/*": "./src/enums/*.js",
+    "#validators/*": "./src/validators/*.js",
     "#database/factories/*": "./src/database/factories/*.js"
   },
   "hotHook": {
@@ -44,12 +45,12 @@
     ]
   },
   "dependencies": {
+    "@vinejs/vine": "^4.4.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "kysely": "^0.29.5",
     "pg": "^8.23.0",
-    "pino": "^10.3.1",
-    "zod": "^4.6.2"
+    "pino": "^10.3.1"
   },
   "devDependencies": {
     "@faker-js/faker": "^10.6.0",
