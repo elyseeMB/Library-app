@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard · hx-boost</title>
+  </head>
+
+  <body hx-boost="true" hx-target="#main" hx-select="#main" hx-swap="outerHTML">
+    <nav>
+      <a href="/">Accueil</a>
+      <a href="/pages/dashboard.html" aria-current="page">Dashboard</a>
+      <a href="/pages/profile.html">Profil</a>
+    </nav>
+
+    <main class="container" id="main">
+      <h1>Dashboard</h1>
+      <p>Statistiques de la bibliothèque (contenu de démonstration).</p>
+      <div class="grid">
+        <article class="card">
+          <strong>128</strong>
+          <span>Livres</span>
+        </article>
+        <article class="card">
+          <strong>14</strong>
+          <span>Emprunts en cours</span>
+        </article>
+        <article class="card">
+          <strong>36</strong>
+          <span>Membres actifs</span>
+        </article>
+      </div>
+    </main>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

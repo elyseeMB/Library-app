@@ -1,13 +1,38 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
   <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>frontend</title>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil · hx-boost</title>
   </head>
-  <body>
-    <div id="app"></div>
+
+  <body hx-boost="true" hx-target="#main" hx-select="#main" hx-swap="outerHTML">
+    <nav>
+      <a href="/" aria-current="page">Accueil</a>
+      <a href="/pages/dashboard.html">Dashboard</a>
+      <a href="/pages/profile.html">Profil</a>
+    </nav>
+
+    <main class="container" id="main">
+      <h1>Accueil</h1>
+      <p>
+        Ceci est un prototype de <strong>routeur htmx</strong> basé sur
+        <code>hx-boost</code>. Tous les liens de la navigation sont de simples
+        <code>&lt;a href&gt;</code>
+        : htmx intercepte le clic, fait un fetch AJAX, remplace le <code>&lt;body&gt;</code> et
+        pousse l'URL dans l'historique.
+      </p>
+      <p>
+        Clique sur <strong>Dashboard</strong> ou <strong>Profil</strong> sans rechargement. Utilise
+        ensuite les boutons <em>précédent</em> /
+        <em>suivant</em>
+        du navigateur : le cache d'historique d'htmx restaure les pages instantanément.
+      </p>
+      <p>Ouvre la console pour voir les événements htmx déclenchés.</p>
+    </main>
+
+    <script src="/htmx.min.js"></script>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

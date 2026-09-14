@@ -47,9 +47,6 @@ importers:
       sharp:
         specifier: ^0.35.4
         version: 0.35.4(@types/node@26.5.1)
-      zod:
-        specifier: ^4.6.2
-        version: 4.6.2
     devDependencies:
       '@faker-js/faker':
         specifier: ^10.6.0
@@ -95,6 +92,10 @@ importers:
         version: 7.0.2
 
   apps/frontend:
+    dependencies:
+      htmx.org:
+        specifier: ^2.0.10
+        version: 2.0.10
     devDependencies:
       '@root/biome-config':
         specifier: workspace:*
@@ -1362,6 +1363,9 @@ packages:
 
   hot-hook@1.0.0:
     resolution: {integrity: sha512-OkZm5tTE4ej8ur8VlcQwMm8G9sFxu4D+shM+ol/h4mrUhuZvFkjk5n/nWKmLq3COmy6epLN7XIIQJ75tnqCGIw==}
+
+  htmx.org@2.0.10:
+    resolution: {integrity: sha512-kdeJe7ZVwaS6QMz/ebBIVtZdpwen6L0OQ5GOhPV9MKBb196TCZeZu4yA7ZIQsaLKv7EpXz+So7KSXNuHXhj7Cw==}
 
   http-errors@2.0.1:
     resolution: {integrity: sha512-4FbRdAX+bSdmo4AUFuS0WNiPz8NgFt+r8ThgNWmlrjQjt1Q7ZR9+zTlce2859x4KSXrwIsaeTqDoKQmtP8pLmQ==}
@@ -3243,6 +3247,8 @@ snapshots:
       parse-imports: 3.0.0
       picomatch: 4.0.7
       read-package-up: 12.0.0
+
+  htmx.org@2.0.10: {}
 
   http-errors@2.0.1:
     dependencies:
