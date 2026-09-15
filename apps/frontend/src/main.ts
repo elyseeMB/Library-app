@@ -1,4 +1,3 @@
-import './style.css';
 import htmx from 'htmx.org';
 
 function highlightNav(): void {
