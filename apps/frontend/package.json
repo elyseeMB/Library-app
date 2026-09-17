@@ -15,5 +15,8 @@
     "@root/tsconfig": "workspace:*",
     "typescript": "~6.0.2",
     "vite": "^8.3.0"
+  },
+  "dependencies": {
+    "htmx.org": "^2.0.10"
   }
 }
