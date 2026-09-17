@@ -22,11 +22,16 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::528049653207:role/github-actions-deploy-role
           aws-region: ${{ env.AWS_REGION }}
+      - name: Login
+        run: |
+          aws ecr-public get-login-password --region us-east-1 \
+            | docker login --username AWS --password-stdin public.ecr.aws
       - name: Setup SAM CLI
         uses: aws-actions/setup-sam@v2
         with:
           use-installer: true
           token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Build
         run: sam build
       - name: Deploy
