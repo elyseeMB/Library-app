@@ -17,6 +17,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Debug OIDC
+        uses: github/actions-oidc-debugger@main
+        permissions:
+          id-token: write
+          contents: read
       - name: OIDC
         uses: aws-actions/configure-aws-credentials@v6
         with:
