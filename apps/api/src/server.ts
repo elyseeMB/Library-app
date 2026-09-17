@@ -14,4 +14,6 @@ app.use(pinoHttpLogger);
 const { registerRoutes } = await import('./routes.ts');
 await registerRoutes(app);
 
-app.listen(3000, () => pinoLogger.info('Server on http://localhost:3000'));
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, () => pinoLogger.info(`Server on http://localhost:${PORT}`));
