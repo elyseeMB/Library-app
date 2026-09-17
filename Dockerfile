@@ -2,12 +2,10 @@
 FROM public.ecr.aws/docker/library/node:20-slim AS base
 
 RUN corepack enable
-
 WORKDIR /repo
 
 # Manifests
 COPY pnpm-workspace.yaml package.json pnpm-lock.yaml ./
-
 COPY apps/api/package.json ./apps/api/package.json
 COPY packages/tsconfig/package.json ./packages/tsconfig/package.json
 COPY packages/biome/package.json ./packages/biome/package.json
@@ -40,7 +38,5 @@ ENV PORT=8080
 ENV NODE_ENV=production
 
 WORKDIR /var/task
-
 COPY --from=base /prod/api ./
-
 CMD ["node", "--enable-source-maps", "dist/server.js"]
