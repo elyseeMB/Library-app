@@ -3,12 +3,7 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "types": ["hot-hook/import-meta"],
-    "paths": {
-      "#config/*": ["./src/config/*"],
-      "#router/*": ["./src/router/*"],
-      "#controllers/*": ["./src/controllers/*"],
-      "#actions/*": ["./src/actions/*"]
-    },
+    "customConditions": ["development"],
     "target": "esnext",
     "module": "nodenext",
     "moduleResolution": "nodenext",

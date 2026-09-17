@@ -1,0 +1,102 @@
+.color-title {
+  color: var(--color-title);
+}
+
+.color-danger {
+  color: var(--color-red) !important;
+}
+
+.color-100 {
+  color: var(--color-100);
+}
+
+.color-200 {
+  color: var(--color-200);
+}
+
+.color-300 {
+  color: var(--color-300);
+}
+
+.color-400 {
+  color: var(--color-400);
+}
+
+.color-500 {
+  color: var(--color-500);
+}
+
+.color-600 {
+  color: var(--color-600);
+}
+
+.color-700 {
+  color: var(--color-700);
+}
+
+.color-neon {
+  color: var(--color-neon) !important;
+}
+
+.color-purple {
+  color: var(--color-purple);
+}
+
+.color-green {
+  color: var(--color-green) !important;
+}
+
+.color-red {
+  color: var(--color-red) !important;
+}
+
+.color-orange {
+  color: var(--color-orange);
+}
+
+.color-graph1 {
+  color: var(--graph1);
+}
+
+.color-graph2 {
+  color: var(--graph2);
+}
+
+.color-graph3 {
+  color: var(--graph3);
+}
+
+.color-graph4 {
+  color: var(--graph4);
+}
+
+.color-graph5 {
+  color: var(--graph5);
+}
+
+.color-graph6 {
+  color: var(--graph6);
+}
+
+.color-graph7 {
+  color: var(--graph7);
+}
+
+.color-graph8 {
+  color: var(--graph8);
+}
+
+.color-graph9 {
+  color: var(--graph9);
+}
+
+.color-graph10 {
+  color: var(--graph10);
+}
+
+.text-buttonL {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}

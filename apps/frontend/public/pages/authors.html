@@ -2,11 +2,9 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authors · hx-boost</title>
     <link rel="stylesheet" href="/src/css/style.css">
-
-    <title>Dashboard · hx-boost</title>
   </head>
 
   <body hx-boost="true" hx-target="#main" hx-select="#main" hx-swap="outerHTML">
@@ -15,11 +13,7 @@
         <button type="button">Logo</button>
 
         <nav class="LayoutSidebar__navbar">
-          <a
-            class="SidebarItem flex middle gap-12 py-8 px-12 text-buttonL color-500"
-            href="/"
-            aria-current="page"
-          >
+          <a class="SidebarItem flex middle gap-12 py-8 px-12 text-buttonL color-500" href="/">
             <div class="relative">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -59,6 +53,7 @@
           <a
             class="SidebarItem flex middle gap-12 py-8 px-12 text-buttonL color-500"
             href="/pages/authors.html"
+            aria-current="page"
           >
             <div class="relative">
               <svg
@@ -130,30 +125,22 @@
       </header>
 
       <main class="LayoutMain" id="main">
-        <h1>Dashboard</h1>
-        <p>Statistiques de la bibliothèque (contenu de démonstration).</p>
+        <h1>Authors</h1>
+        <p>Liste des auteurs disponibles en bibliothèque (contenu de démonstration).</p>
         <div class="grid">
           <article class="card">
-            <strong>128</strong>
-            <span>Livres</span>
+            <strong>Victor Hugo</strong>
+            <span>9 œuvres</span>
           </article>
           <article class="card">
-            <strong>14</strong>
-            <span>Emprunts en cours</span>
+            <strong>George Sand</strong>
+            <span>12 œuvres</span>
           </article>
           <article class="card">
-            <strong>36</strong>
-            <span>Membres actifs</span>
+            <strong>Albert Camus</strong>
+            <span>7 œuvres</span>
           </article>
         </div>
-        <p>
-          Ceci est un prototype de <strong>routeur htmx</strong> basé sur
-          <code>hx-boost</code>. Tous les liens de la navigation sont de simples
-          <code>&lt;a href&gt;</code>
-          : htmx intercepte le clic, fait un fetch AJAX, remplace le <code>&lt;body&gt;</code> et
-          pousse l'URL dans l'historique.
-        </p>
-        <p>Ouvre la console pour voir les événements htmx déclenchés.</p>
       </main>
     </div>
 

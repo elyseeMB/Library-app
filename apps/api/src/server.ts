@@ -1,29 +1,19 @@
-import { realpathSync } from 'node:fs'
-import express, { type Express } from 'express'
-import { hot } from 'hot-hook'
-import { pinoHttp } from 'pino-http'
-import { logger } from '#config/logger'
+import '#config/env';
+import express, { type Express } from 'express';
+import { initHotReload, logger as pinoHttpLogger } from '#config/bootstrap';
+import { pinoConfig as pinoLogger } from '#config/logger';
 
-await hot.init({
-  root: realpathSync.native(import.meta.filename),
-})
+await initHotReload(import.meta.filename);
 
-const app: Express = express()
+const app: Express = express();
+app.use(pinoHttpLogger);
 
-app.use(
-  pinoHttp({
-    logger,
-    customSuccessMessage: (req, res, responseTime) => {
-      return `${req.method} ${req.url} ${res.statusCode} - ${responseTime}ms`
-    },
-    serializers: {
-      req: () => undefined,
-      res: () => undefined,
-    },
-  }),
-)
+/**
+ * Enregistre les routes de l'application [contrainte `hot-hook`]
+ */
+const { registerRoutes } = await import('./routes.ts');
+await registerRoutes(app);
 
-const { registerRoutes } = await import('./routes.ts')
-await registerRoutes().boot(app)
+const PORT = process.env.PORT || 8080;
 
-app.listen(3000, () => logger.info('Server on http://localhost:3000'))
+app.listen(PORT, () => pinoLogger.info(`Server on http://localhost:${PORT}`));

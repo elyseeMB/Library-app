@@ -31,10 +31,15 @@
   "javascript": {
     "formatter": {
       "quoteStyle": "single",
-      "semicolons": "asNeeded"
+      "semicolons": "always"
     }
   },
-
+  "html": {
+    "formatter": {
+      "enabled": true,
+      "selfCloseVoidElements": "never"
+    }
+  },
   "json": {
     "formatter": {
       "enabled": true,

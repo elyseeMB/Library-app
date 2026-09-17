@@ -5,22 +5,64 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "hot-runner --node-args=\"--import=tsx\" ./src/server.ts",
-    "start": "NODE_ENV=production node --import=tsx ./src/server.ts",
+    "dev": "cross-env NODE_OPTIONS=\"--conditions=development\" hot-runner --node-args=\"--import=tsx\" ./src/server.ts",
+    "start": "cross-env NODE_ENV=production node --enable-source-maps ./dist/server.js",
     "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc --noEmit",
     "format": "biome check --write .",
     "lint": "biome check .",
-    "format:check": "biome check ."
+    "format:check": "biome check .",
+    "db:migration": "kysely migrate make",
+    "db:migrate": "node --env-file=../../.env ./node_modules/kysely-ctl/dist/bin.mjs migrate latest",
+    "db:rollback": "node --env-file=../../.env ./node_modules/kysely-ctl/dist/bin.mjs migrate down",
+    "db:generate": "kysely-codegen --dialect postgres --url \"postgresql://library:library@localhost:5432/library\" --out-file ./src/types/db.ts",
+    "db:seed": "node --env-file=../../.env --import=tsx --conditions=development ./src/database/seeds/__seed__.ts",
+    "db:sync": "pnpm db:migrate && pnpm db:generate && pnpm db:seed"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "imports": {
-    "#config/*": "./src/config/*.js",
-    "#router/*": "./src/router/*.js",
-    "#controllers/*": "./src/controllers/*.js",
-    "#actions/*": "./src/actions/*.js"
+    "#config/*": {
+      "development": "./src/config/*.js",
+      "default": "./dist/config/*.js"
+    },
+    "#router/*": {
+      "development": "./src/router/*.js",
+      "default": "./dist/router/*.js"
+    },
+    "#controllers/*": {
+      "development": "./src/controllers/*.js",
+      "default": "./dist/controllers/*.js"
+    },
+    "#actions/*": {
+      "development": "./src/actions/*.js",
+      "default": "./dist/actions/*.js"
+    },
+    "#models/*": {
+      "development": "./src/models/*.js",
+      "default": "./dist/models/*.js"
+    },
+    "#types/*": {
+      "development": "./src/types/*.js",
+      "default": "./dist/types/*.js"
+    },
+    "#repositories/*": {
+      "development": "./src/repositories/*.js",
+      "default": "./dist/repositories/*.js"
+    },
+    "#enums/*": {
+      "development": "./src/enums/*.js",
+      "default": "./dist/enums/*.js"
+    },
+    "#validators/*": {
+      "development": "./src/validators/*.js",
+      "default": "./dist/validators/*.js"
+    },
+    "#database/factories/*": {
+      "development": "./src/database/factories/*.js",
+      "default": "./dist/database/factories/*.js"
+    }
   },
   "hotHook": {
     "boundaries": [
@@ -28,24 +70,36 @@
       "./router/**/*.ts"
     ],
     "restart": [
-      ".env",
+      "../../.env",
       "./config/**/*.ts"
     ]
   },
   "dependencies": {
+    "@vinejs/vine": "^4.4.0",
+    "cross-env": "^10.1.0",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "pino": "^10.3.1"
+    "flydrive": "^2.1.0",
+    "kysely": "^0.29.5",
+    "multer": "^2.3.0",
+    "pg": "^8.23.0",
+    "pino": "^10.3.1",
+    "pino-http": "^11.0.0",
+    "sharp": "^0.35.4"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.6.0",
     "@hot-hook/runner": "^1.0.0",
+    "@root/biome-config": "workspace:*",
+    "@root/tsconfig": "workspace:*",
     "@types/express": "^5.0.6",
     "@types/node": "^26.4.0",
+    "@types/pg": "^8.23.1",
     "hot-hook": "^1.0.0",
-    "pino-http": "^11.0.0",
+    "kysely-codegen": "^0.20.0",
+    "kysely-ctl": "^0.21.0",
     "pino-pretty": "^13.1.3",
     "tsx": "^4.23.13",
-    "typescript": "^7.0.2",
-    "@root/biome-config": "workspace:*",
-    "@root/tsconfig": "workspace:*"
+    "typescript": "^7.0.2"
   }
 }
