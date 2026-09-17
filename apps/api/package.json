@@ -4,6 +4,9 @@
   "description": "",
   "type": "module",
   "main": "index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "cross-env NODE_OPTIONS=\"--conditions=development\" hot-runner --node-args=\"--import=tsx\" ./src/server.ts",
     "start": "cross-env NODE_ENV=production node --enable-source-maps ./dist/server.js",
