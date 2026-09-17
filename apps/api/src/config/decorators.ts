@@ -24,3 +24,21 @@ export function Post(path: string) {
     });
   };
 }
+
+export function Put(path: string) {
+  return (target: Function) => {
+    ROUTE_META.set(target, {
+      method: 'put',
+      path,
+    });
+  };
+}
+
+export function Delete(path: string) {
+  return (target: Function) => {
+    ROUTE_META.set(target, {
+      method: 'delete',
+      path,
+    });
+  };
+}
