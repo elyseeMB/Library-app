@@ -1,4 +1,4 @@
-import '#config/env';
+import './src/config/env.ts';
 import { defineConfig } from 'kysely-ctl';
 import { db } from '#config/database';
 
