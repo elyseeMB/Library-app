@@ -14,19 +14,9 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Inspect
-        shell: bash
-        run: |
-          TOKEN=$(curl -sS \
-            -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-            "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com" \
-            | jq -r '.value')
-
-          echo "$TOKEN" | cut -d '.' -f2 | base64 -d 2>/dev/null | jq '{iss, aud, sub}'
       - name: OIDC
         uses: aws-actions/configure-aws-credentials@v6
         with:
@@ -37,7 +27,6 @@ jobs:
         with:
           use-installer: true
           token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Build
         run: sam build
       - name: Deploy
