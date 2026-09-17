@@ -1,6 +1,6 @@
 import { Kysely, PostgresDialect } from 'kysely';
 import pg from 'pg';
-import type { DB } from '../types/db.ts';
+import type { DB } from '#types/db';
 
 const { Pool } = pg;
 
@@ -11,7 +11,7 @@ const pool = new Pool({
   port: Number(process.env.DB_PORT) || 5432,
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
+  database: process.env.DB_NAME,
   max: 20,
   idleTimeoutMillis: 30_000,
   connectionTimeoutMillis: 5_000,
