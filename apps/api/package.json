@@ -62,6 +62,14 @@
       "development": "./src/validators/*.js",
       "default": "./dist/validators/*.js"
     },
+    "#helpers/*": {
+      "development": "./src/helpers/*.js",
+      "default": "./dist/helpers/*.js"
+    },
+    "#middlewares/*": {
+      "development": "./src/middlewares/*.js",
+      "default": "./dist/middlewares/*.js"
+    },
     "#database/factories/*": {
       "development": "./src/database/factories/*.js",
       "default": "./dist/database/factories/*.js"
