@@ -9,7 +9,6 @@ export default class DestroyBook extends BaseAction {
   async asController(req: Request<{ id: string }>, res: Response) {
     try {
       const book = await this.handle(req.params.id);
-
       if (!book) {
         return res.status(404).json({ message: 'Book not found' });
       }

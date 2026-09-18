@@ -14,14 +14,14 @@ export async function registerRoutes(app: Express) {
   await loadRoute(api, () => import('#actions/authors/destroy_author'));
 
   /** Books */
-  await loadRoute(api, () => import('#actions/books/get_paginated_book'));
+  await loadRoute(api, () => import('#actions/books/list_books'));
   await loadRoute(api, () => import('#actions/books/show_book'));
   await loadRoute(api, () => import('#actions/books/store_book'), [ensureJson]);
   await loadRoute(api, () => import('#actions/books/update_book'), [ensureJson]);
   await loadRoute(api, () => import('#actions/books/destroy_book'));
 
   /** Members */
-  await loadRoute(api, () => import('#actions/members/get_paginated_member'));
+  await loadRoute(api, () => import('#actions/members/list_member'));
   await loadRoute(api, () => import('#actions/members/show_member'));
   await loadRoute(api, () => import('#actions/members/store_member'), [ensureJson]);
   await loadRoute(api, () => import('#actions/members/update_member'), [ensureJson]);
@@ -32,7 +32,7 @@ export async function registerRoutes(app: Express) {
   await loadRoute(api, () => import('#actions/stats/get_stat'));
 
   /** Loans */
-  await loadRoute(api, () => import('#actions/loans/get_paginated_loan'));
+  await loadRoute(api, () => import('#actions/loans/list_loan'));
   await loadRoute(api, () => import('#actions/loans/store_loan'), [ensureJson]);
   await loadRoute(api, () => import('#actions/loans/return_loan'));
   app.use('/api/v1', api);

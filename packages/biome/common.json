@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.5.13/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
@@ -9,7 +9,8 @@
     "enabled": true,
     "indentStyle": "space",
     "indentWidth": 2,
-    "lineWidth": 100
+    "lineWidth": 100,
+    "lineEnding": "crlf"
   },
   "linter": {
     "enabled": true,
@@ -23,8 +24,12 @@
         "useImportType": "error",
         "useExportType": "error"
       },
+      "complexity": {
+        "noThisInStatic": "off"
+      },
       "suspicious": {
-        "noImplicitAnyLet": "error"
+        "noImplicitAnyLet": "error",
+        "noExplicitAny": "off"
       }
     }
   },
