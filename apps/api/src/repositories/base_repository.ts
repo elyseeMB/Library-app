@@ -3,6 +3,19 @@ import { db as defaultDb } from '#config/database';
 import type { DB } from '#types/db';
 
 /**
+ * Structures de pagination réutilisées par les repositories (ex: `getPaginated`).
+ */
+export interface Paginated<T> {
+  data: T[];
+  meta: {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+  };
+}
+
+/**
  * Repository générique fournissant les opérations CRUD de base (find, create, update, delete, softDelete) pour n'importe quelle table définie dans `DB`.
  *
  * Chaque repository concret (ex: `BookRepository`) étend cette classe en fixant `TB`
@@ -27,10 +40,9 @@ export class BaseRepository<TB extends keyof DB> {
 
   async all(db: Kysely<DB> = this.db): Promise<Selectable<DB[TB]>[]> {
     const { table } = db.dynamic;
-    return db
-      .selectFrom(table(this.table).as('t'))
-      .selectAll()
-      .execute() as Promise<Selectable<DB[TB]>[]>;
+    return db.selectFrom(table(this.table).as('t')).selectAll().execute() as Promise<
+      Selectable<DB[TB]>[]
+    >;
   }
 
   async create(data: Insertable<DB[TB]>, db: Kysely<DB> = this.db): Promise<Selectable<DB[TB]>> {

@@ -1,21 +1,11 @@
 import type { Insertable, Selectable, SelectQueryBuilder, Updateable } from 'kysely';
-import { BaseRepository } from '#repositories/base_repository';
+import { BaseRepository, type Paginated } from '#repositories/base_repository';
 import type { DB } from '#types/db';
 
 export type Book = Selectable<DB['books']>;
 export type NewBook = Insertable<DB['books']>;
 export type BookUpdate = Updateable<DB['books']>;
 export type BookWithAuthor = Book & { author_name: string };
-
-export interface Paginated<T> {
-  data: T[];
-  meta: {
-    page: number;
-    limit: number;
-    total: number;
-    totalPages: number;
-  };
-}
 
 export interface GetPaginatedParams {
   page?: number;

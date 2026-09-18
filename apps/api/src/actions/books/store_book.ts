@@ -10,7 +10,7 @@ import { storeBookValidator } from '#validators/books_validator';
 export default class StoreBook extends BaseAction {
   validator = storeBookValidator;
 
-  async asController(_req: Request, res: Response, data?: Infer<typeof storeBookValidator>) {
+  async asController(_: Request, res: Response, data?: Infer<typeof storeBookValidator>) {
     try {
       return await this.handle(data as NewBook);
     } catch (error) {

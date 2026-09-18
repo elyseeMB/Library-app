@@ -10,7 +10,7 @@ import { storeAuthorValidator } from '#validators/authors_validator';
 export default class StoreAuthor extends BaseAction {
   validator = storeAuthorValidator;
 
-  async asController(_req: Request, res: Response, data?: Infer<typeof storeAuthorValidator>) {
+  async asController(_: Request, res: Response, data?: Infer<typeof storeAuthorValidator>) {
     try {
       return await this.handle(data as NewAuthor);
     } catch (error) {
