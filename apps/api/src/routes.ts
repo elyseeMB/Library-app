@@ -30,5 +30,10 @@ export async function registerRoutes(app: Express) {
 
   /** Stats */
   await loadRoute(api, () => import('#actions/stats/get_stat'));
+
+  /** Loans */
+  await loadRoute(api, () => import('#actions/loans/get_paginated_loan'));
+  await loadRoute(api, () => import('#actions/loans/store_loan'), [ensureJson]);
+  await loadRoute(api, () => import('#actions/loans/return_loan'));
   app.use('/api/v1', api);
 }
