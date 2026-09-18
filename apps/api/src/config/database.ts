@@ -11,7 +11,7 @@ const isProd = process.env.NODE_ENV === 'production';
 async function getConnectionStringFromSSM(): Promise<string> {
   const ssm = new SSMClient({});
   const command = new GetParameterCommand({
-    Name: process.env.NEON_DATABASE_URL_PARAM,
+    Name: process.env.NEON_DATABASE_URL,
     WithDecryption: true,
   });
   const response = await ssm.send(command);
