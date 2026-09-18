@@ -27,5 +27,8 @@ export async function registerRoutes(app: Express) {
   await loadRoute(api, () => import('#actions/members/update_member'), [ensureJson]);
   await loadRoute(api, () => import('#actions/members/destroy_member'));
   await loadRoute(api, () => import('#actions/members/get_member_loans'));
+
+  /** Stats */
+  await loadRoute(api, () => import('#actions/stats/get_stat'));
   app.use('/api/v1', api);
 }
