@@ -1,5 +1,5 @@
 import type { Insertable, Selectable, SelectQueryBuilder, Updateable } from 'kysely';
-import { BaseRepository, type Paginated } from '#repositories/base_repository';
+import { BaseRepository } from '#repositories/base_repository';
 import type { DB } from '#types/db';
 
 export type Book = Selectable<DB['books']>;
@@ -7,9 +7,7 @@ export type NewBook = Insertable<DB['books']>;
 export type BookUpdate = Updateable<DB['books']>;
 export type BookWithAuthor = Book & { author_name: string };
 
-export interface GetPaginatedParams {
-  page?: number;
-  limit?: number;
+export interface ListBooksParams {
   search?: string;
 }
 
@@ -23,48 +21,19 @@ export class BookRepository extends BaseRepository<'books'> {
   }
 
   /**
-   * Pagine les livres (avec le nom de leur auteur).
+   * Liste tous les livres (avec le nom de leur auteur), du plus récent au plus ancien.
    *
-   * Le filtre `search` est appliqué AVANT la pagination (WHERE avant LIMIT/OFFSET) et
-   * de façon identique sur les deux requêtes exécutées en parallèle :
-   * - `rowsQuery` : lignes de la page courante
-   * - `countQuery` : total des lignes correspondantes (sans LIMIT/OFFSET)
+   * Le tri est rendu déterministe par l'ajout de l'`id` (colonne unique) comme critère
+   * de départage, afin que l'ordre de la liste reste stable entre deux requêtes.
    *
-   * Ainsi `meta.total` reflète la recherche appliquée et `meta.totalPages` reste correct.
-   *
-   * @param params `page` (1 par défaut), `limit` (10 par défaut), `search` (titre ou auteur)
+   * @param params `search` (facultatif) : filtre sur le titre ou le nom de l'auteur
    */
-  async getPaginated(params: GetPaginatedParams = {}): Promise<Paginated<BookWithAuthor>> {
-    const page = params.page ?? 1;
-    const limit = params.limit ?? 10;
+  async list(params: ListBooksParams = {}): Promise<BookWithAuthor[]> {
     const search = params.search?.trim();
 
-    const rowsQuery = this.withAuthor()
-      .orderBy('books.created_at', 'desc')
-      .limit(limit)
-      .offset((page - 1) * limit);
+    const query = this.withAuthor().orderBy('books.created_at', 'desc').orderBy('books.id', 'asc');
 
-    const countQuery = this.db
-      .selectFrom('books')
-      .innerJoin('authors', 'authors.id', 'books.author_id')
-      .select((eb) => eb.fn.countAll().as('count'));
-
-    const [rows, totalRow] = await Promise.all([
-      (search ? this.applySearch(rowsQuery, search) : rowsQuery).execute(),
-      (search ? this.applySearch(countQuery, search) : countQuery).executeTakeFirst(),
-    ]);
-
-    const total = Number(totalRow?.count ?? 0);
-
-    return {
-      data: rows,
-      meta: {
-        page,
-        limit,
-        total,
-        totalPages: Math.ceil(total / limit),
-      },
-    };
+    return await (search ? this.applySearch(query, search) : query).execute();
   }
 
   /**

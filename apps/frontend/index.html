@@ -4,7 +4,34 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./src/css/style.css">
+    <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+    html,
+    body {
+      margin: 0;
+    }
+    body {
+      min-height: 100svh;
+      font:
+        16px / 1.5 system-ui,
+        "Segoe UI",
+        Roboto,
+        sans-serif;
+      color: #27212e;
+      background: #fdfdfc;
+      -webkit-font-smoothing: antialiased;
+    }
+    input,
+    button,
+    textarea,
+    select {
+      font: inherit;
+    }
+    </style>
     <title>Bibliothèque</title>
   </head>
   <body>

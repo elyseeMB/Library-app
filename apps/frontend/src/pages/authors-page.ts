@@ -213,25 +213,37 @@ export class AuthorsPage extends LitElement {
 
       <app-dialog label=${this.editingId ? 'Éditer l’auteur' : 'Ajouter un auteur'} ?open=${this.dialogOpen} @wa-after-hide=${() => (this.dialogOpen = false)}>
         <form @submit=${this.submit}>
-          ${this.formError ? html`<p class="alert alert-error">${this.formError}</p>` : ''}
+          ${
+            this.formError
+              ? html`<p class="alert alert-error">${this.formError}
+          </p>`
+              : ''
+          }
+
           <app-field label="Nom" error=${this.fieldErrors.name ?? ''}>
             <input .value=${this.form.name ?? ''} @input=${(e: Event) => this.onInput(e, 'name')} />
           </app-field>
+
           <app-field label="Nationalité" error=${this.fieldErrors.nationality ?? ''}>
             <input .value=${this.form.nationality ?? ''} @input=${(e: Event) => this.onInput(e, 'nationality')} />
           </app-field>
+
           <app-field label="Email" error=${this.fieldErrors.email ?? ''}>
             <input type="email" .value=${this.form.email ?? ''} @input=${(e: Event) => this.onInput(e, 'email')} />
           </app-field>
+
           <app-field label="Téléphone" error=${this.fieldErrors.phone ?? ''}>
             <input .value=${this.form.phone ?? ''} @input=${(e: Event) => this.onInput(e, 'phone')} />
           </app-field>
+
           <app-field label="Biographie" error=${this.fieldErrors.bio ?? ''}>
             <textarea .value=${this.form.bio ?? ''} @input=${(e: Event) => this.onInput(e, 'bio')}></textarea>
           </app-field>
+
           <app-field label="Site web" error=${this.fieldErrors.website ?? ''}>
             <input type="url" .value=${this.form.website ?? ''} @input=${(e: Event) => this.onInput(e, 'website')} />
           </app-field>
+
           <div class="row" style="justify-content: flex-end; margin-top: 20px;">
             <button type="button" class="btn btn-secondary" @click=${() => (this.dialogOpen = false)}>Annuler</button>
             <button type="submit" class="btn btn-primary">Enregistrer</button>

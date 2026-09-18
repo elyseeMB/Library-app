@@ -1,15 +1,10 @@
 import type { Insertable, Selectable, Updateable } from 'kysely';
-import { BaseRepository, type Paginated } from '#repositories/base_repository';
+import { BaseRepository } from '#repositories/base_repository';
 import type { DB } from '#types/db';
 
 export type Member = Selectable<DB['members']>;
 export type NewMember = Insertable<DB['members']>;
 export type MemberUpdate = Updateable<DB['members']>;
-
-export interface GetMemberParams {
-  page?: number;
-  limit?: number;
-}
 
 export type MemberLoan = {
   id: string;
@@ -27,43 +22,17 @@ export class MemberRepository extends BaseRepository<'members'> {
   }
 
   /**
-   * Pagine les adhérents (nom + contact : email, téléphone).
+   * Liste tous les adhérents, du plus récent au plus ancien.
    *
-   * Même principe que les livres : une requête pour les lignes de la page courante et une
-   * pour le total, exécutées en parallèle, afin que `meta.total` et `meta.totalPages`
-   * soient cohérents.
-   *
-   * @param params `page` (1 par défaut), `limit` (10 par défaut)
+   * Tri rendu déterministe par l'ajout de l'`id` comme critère de départage.
    */
-  async getPaginated(params: GetMemberParams = {}): Promise<Paginated<Member>> {
-    const page = params.page ?? 1;
-    const limit = params.limit ?? 10;
-
-    const [rows, totalRow] = await Promise.all([
-      this.db
-        .selectFrom('members')
-        .selectAll()
-        .orderBy('created_at', 'desc')
-        .limit(limit)
-        .offset((page - 1) * limit)
-        .execute(),
-      this.db
-        .selectFrom('members')
-        .select((eb) => eb.fn.countAll().as('count'))
-        .executeTakeFirst(),
-    ]);
-
-    const total = Number(totalRow?.count ?? 0);
-
-    return {
-      data: rows,
-      meta: {
-        page,
-        limit,
-        total,
-        totalPages: Math.ceil(total / limit),
-      },
-    };
+  async list(): Promise<Member[]> {
+    return await this.db
+      .selectFrom('members')
+      .selectAll()
+      .orderBy('created_at', 'desc')
+      .orderBy('id', 'asc')
+      .execute();
   }
 
   /**
@@ -87,6 +56,7 @@ export class MemberRepository extends BaseRepository<'members'> {
       ])
       .where('loans.member_id', '=', memberId)
       .orderBy('loans.borrowed_at', 'desc')
+      .orderBy('loans.id', 'asc')
       .execute();
 
     return loans.map((loan) => ({

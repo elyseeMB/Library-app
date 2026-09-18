@@ -6,7 +6,6 @@ import '@awesome.me/webawesome/dist/components/drawer/drawer.js';
 import './components/app-dialog';
 import './components/app-drawer';
 import './components/app-field';
-import './components/app-pagination';
 import './components/app-status-badge';
 import './layout/app-layout';
 

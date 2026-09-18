@@ -58,16 +58,6 @@ export type MemberLoan = {
   state: MemberLoanState;
 };
 
-export type Pagination<T> = {
-  data: T[];
-  meta: {
-    page: number;
-    limit: number;
-    total: number;
-    totalPages: number;
-  };
-};
-
 export type TopBook = {
   book_id: string;
   title: string;

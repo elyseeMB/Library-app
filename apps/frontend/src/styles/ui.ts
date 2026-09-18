@@ -216,16 +216,6 @@ export const uiStyles = css`
     font-size: 13px;
   }
 
-  .pagination {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    margin-top: 16px;
-    color: var(--color-500, #6d7380);
-    font-size: 14px;
-  }
-
   .empty {
     padding: 32px;
     text-align: center;

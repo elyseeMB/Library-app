@@ -1,5 +1,5 @@
 import type { Insertable, Selectable, SelectQueryBuilder, Updateable } from 'kysely';
-import { BaseRepository, type Paginated } from '#repositories/base_repository';
+import { BaseRepository } from '#repositories/base_repository';
 import type { DB } from '#types/db';
 
 export type Loan = Selectable<DB['loans']>;
@@ -19,12 +19,6 @@ export type LoanWithDetails = {
   returned_at: Date | null;
   state: LoanStatus;
 };
-
-export interface GetLoanParams {
-  page?: number;
-  limit?: number;
-  status?: LoanStatus;
-}
 
 export type StoreLoanResult =
   | { ok: true; loan: Loan }
@@ -132,44 +126,21 @@ export class LoanRepository extends BaseRepository<'loans'> {
   }
 
   /**
-   * Liste paginée des emprunts (`current` par défaut, ou `overdue`), avec le titre du livre
-   * et le nom de l'adhérent. Même pattern que les livres : le filtre est appliqué à la fois
-   * sur la requête de lignes et celle de comptage.
+   * Liste tous les emprunts (`current` par défaut, ou `overdue`) avec le titre du livre
+   * et le nom de l'adhérent, du plus récent au plus ancien. Tri générateur déterministe
+   * via l'`id` (unique) ajouté comme critère de départage.
    *
-   * @param params `page`, `limit`, `status` (`'current'` = non rendu, `'overdue'` = non rendu et `due_date` dépassée)
+   * @param params `status` (`'current'` = non rendu, `'overdue'` = non rendu et `due_date` dépassée)
    */
-  async getPaginated(params: GetLoanParams = {}): Promise<Paginated<LoanWithDetails>> {
-    const page = params.page ?? 1;
-    const limit = params.limit ?? 10;
+  async list(params: { status?: LoanStatus } = {}): Promise<LoanWithDetails[]> {
     const status = params.status ?? 'current';
 
-    const rowsQuery = this.withDetails()
-      .orderBy('loans.borrowed_at', 'desc')
-      .limit(limit)
-      .offset((page - 1) * limit);
+    const rows = await this.applyStatus(
+      this.withDetails().orderBy('loans.borrowed_at', 'desc').orderBy('loans.id', 'asc'),
+      status,
+    ).execute();
 
-    const countQuery = this.db
-      .selectFrom('loans')
-      .innerJoin('books', 'books.id', 'loans.book_id')
-      .innerJoin('members', 'members.id', 'loans.member_id')
-      .select((eb) => eb.fn.countAll().as('count'));
-
-    const [rows, totalRow] = await Promise.all([
-      this.applyStatus(rowsQuery, status).execute(),
-      this.applyStatus(countQuery, status).executeTakeFirst(),
-    ]);
-
-    const total = Number(totalRow?.count ?? 0);
-
-    return {
-      data: rows.map((row) => ({ ...row, state: status })),
-      meta: {
-        page,
-        limit,
-        total,
-        totalPages: Math.ceil(total / limit),
-      },
-    };
+    return rows.map((row) => ({ ...row, state: status }));
   }
 
   /**

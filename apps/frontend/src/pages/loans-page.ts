@@ -52,15 +52,6 @@ export class LoansPage extends LitElement {
   private loans: Loan[] = [];
 
   @state()
-  private page = 1;
-
-  @state()
-  private totalPages = 1;
-
-  @state()
-  private total = 0;
-
-  @state()
   private loading = true;
 
   @state()
@@ -107,12 +98,9 @@ export class LoansPage extends LitElement {
 
   async loadOptions() {
     try {
-      const [members, books] = await Promise.all([
-        MembersApi.list({ page: 1, limit: 100 }),
-        BooksApi.list({ page: 1, limit: 100 }),
-      ]);
-      this.members = members.data;
-      this.availableBooks = books.data.filter((book) => book.status === 'available');
+      const [members, books] = await Promise.all([MembersApi.list(), BooksApi.list()]);
+      this.members = members;
+      this.availableBooks = books.filter((book) => book.status === 'available');
     } catch {
       this.members = [];
       this.availableBooks = [];
@@ -123,11 +111,7 @@ export class LoansPage extends LitElement {
     this.loading = true;
     this.error = '';
     try {
-      const result = await LoansApi.list({ filter: this.filter, page: this.page, limit: 10 });
-      this.loans = result.data;
-      this.totalPages = result.meta.totalPages;
-      this.total = result.meta.total;
-      this.page = result.meta.page;
+      this.loans = await LoansApi.list({ filter: this.filter });
     } catch (e) {
       this.error = e instanceof ApiError ? e.message : 'Erreur inattendue';
     } finally {
@@ -140,7 +124,6 @@ export class LoansPage extends LitElement {
       return;
     }
     this.filter = filter;
-    this.page = 1;
     this.actionError = '';
     await this.load();
   }
@@ -194,7 +177,6 @@ export class LoansPage extends LitElement {
         due_date: new Date(this.dueDate).toISOString(),
       });
       this.createOpen = false;
-      this.page = 1;
       await this.load();
       await this.loadOptions();
     } catch (e) {
@@ -206,11 +188,6 @@ export class LoansPage extends LitElement {
 
   formatDate(value: string): string {
     return new Date(value).toLocaleDateString('fr-FR');
-  }
-
-  onPageChange(event: CustomEvent<{ page: number }>) {
-    this.page = event.detail.page;
-    void this.load();
   }
 
   render(): TemplateResult {
@@ -293,23 +270,19 @@ export class LoansPage extends LitElement {
                   </tbody>
                 </table>
               </div>
-              <app-pagination
-                page=${this.page}
-                total-pages=${this.totalPages}
-                total=${this.total}
-                @page-change=${this.onPageChange}
-              ></app-pagination>
             `
       }
 
       <app-drawer label="Nouvel emprunt" ?open=${this.createOpen} placement="end" @wa-after-hide=${() => (this.createOpen = false)}>
         ${this.createError ? html`<p class="alert alert-error">${this.createError}</p>` : ''}
+
         <app-field label="Adhérent">
           <select .value=${this.memberId} @change=${this.onMember}>
             <option value="">Choisir un adhérent</option>
             ${this.members.map((member) => html`<option value=${member.id}>${member.name}</option>`)}
           </select>
         </app-field>
+
         <app-field label="Livre">
           <select .value=${this.bookId} @change=${this.onBook}>
             <option value="">Choisir un livre</option>
@@ -320,9 +293,11 @@ export class LoansPage extends LitElement {
             )}
           </select>
         </app-field>
+
         <app-field label="Date de retour">
           <input type="date" .value=${this.dueDate} @input=${this.onDueDate} />
         </app-field>
+        
         <div slot="footer" class="row" style="justify-content: flex-end;">
           <button class="btn btn-secondary" ?disabled=${this.creating} @click=${() => (this.createOpen = false)}>
             Annuler

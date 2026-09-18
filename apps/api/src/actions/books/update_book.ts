@@ -17,7 +17,6 @@ export default class UpdateBook extends BaseAction {
   ) {
     try {
       const book = await this.handle(req.params.id, data as BookUpdate);
-
       if (!book) {
         return res.status(404).json({ message: 'Book not found' });
       }

@@ -3,19 +3,6 @@ import { db as defaultDb } from '#config/database';
 import type { DB } from '#types/db';
 
 /**
- * Structures de pagination réutilisées par les repositories (ex: `getPaginated`).
- */
-export interface Paginated<T> {
-  data: T[];
-  meta: {
-    page: number;
-    limit: number;
-    total: number;
-    totalPages: number;
-  };
-}
-
-/**
  * Repository générique fournissant les opérations CRUD de base (find, create, update, delete, softDelete) pour n'importe quelle table définie dans `DB`.
  *
  * Chaque repository concret (ex: `BookRepository`) étend cette classe en fixant `TB`

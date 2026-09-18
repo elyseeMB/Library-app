@@ -26,15 +26,6 @@ export class BooksPage extends LitElement {
   private books: Book[] = [];
 
   @state()
-  private page = 1;
-
-  @state()
-  private totalPages = 1;
-
-  @state()
-  private total = 0;
-
-  @state()
   private search = '';
 
   @state()
@@ -91,15 +82,7 @@ export class BooksPage extends LitElement {
     this.loading = true;
     this.error = '';
     try {
-      const result = await BooksApi.list({
-        page: this.page,
-        limit: 10,
-        search: this.search,
-      });
-      this.books = result.data;
-      this.totalPages = result.meta.totalPages;
-      this.total = result.meta.total;
-      this.page = result.meta.page;
+      this.books = await BooksApi.list({ search: this.search });
     } catch (e) {
       this.error = e instanceof ApiError ? e.message : 'Erreur inattendue';
     } finally {
@@ -109,7 +92,6 @@ export class BooksPage extends LitElement {
 
   onSearch(event: Event) {
     this.search = (event.target as HTMLInputElement).value;
-    this.page = 1;
     void this.load();
   }
 
@@ -210,11 +192,6 @@ export class BooksPage extends LitElement {
     }
   }
 
-  onPageChange(event: CustomEvent<{ page: number }>) {
-    this.page = event.detail.page;
-    void this.load();
-  }
-
   render(): TemplateResult {
     return html`
       <div class="toolbar">
@@ -264,12 +241,6 @@ export class BooksPage extends LitElement {
                   </tbody>
                 </table>
               </div>
-              <app-pagination
-                page=${this.page}
-                total-pages=${this.totalPages}
-                total=${this.total}
-                @page-change=${this.onPageChange}
-              ></app-pagination>
             `
       }
 
@@ -280,15 +251,18 @@ export class BooksPage extends LitElement {
       >
         <form @submit=${this.submit}>
           ${this.formError ? html`<p class="alert alert-error">${this.formError}</p>` : ''}
+
           <app-field label="Titre" error=${this.fieldErrors.title ?? ''}>
             <input .value=${this.bookTitle} @input=${this.onTitle} />
           </app-field>
+
           <app-field label="Auteur" error=${this.fieldErrors.author_id ?? ''}>
             <select .value=${this.authorId} @change=${this.onAuthor}>
               <option value="">Choisir un auteur</option>
               ${this.authors.map((author) => html`<option value=${author.id}>${author.name}</option>`)}
             </select>
           </app-field>
+
           <app-field label="Année de publication" error=${this.fieldErrors.publication_year ?? ''}>
             <input
               type="number"
@@ -298,6 +272,7 @@ export class BooksPage extends LitElement {
               @input=${this.onYear}
             />
           </app-field>
+          
           <div class="row" style="justify-content: flex-end; margin-top: 20px;">
             <button type="button" class="btn btn-secondary" @click=${() => (this.dialogOpen = false)}>Annuler</button>
             <button type="submit" class="btn btn-primary">Enregistrer</button>

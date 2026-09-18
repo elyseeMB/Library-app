@@ -26,15 +26,6 @@ export class MembersPage extends LitElement {
   private members: Member[] = [];
 
   @state()
-  private page = 1;
-
-  @state()
-  private totalPages = 1;
-
-  @state()
-  private total = 0;
-
-  @state()
   private loading = true;
 
   @state()
@@ -82,11 +73,7 @@ export class MembersPage extends LitElement {
     this.loading = true;
     this.error = '';
     try {
-      const result = await MembersApi.list({ page: this.page, limit: 10 });
-      this.members = result.data;
-      this.totalPages = result.meta.totalPages;
-      this.total = result.meta.total;
-      this.page = result.meta.page;
+      this.members = await MembersApi.list();
     } catch (e) {
       this.error = e instanceof ApiError ? e.message : 'Erreur inattendue';
     } finally {
@@ -197,11 +184,6 @@ export class MembersPage extends LitElement {
     return new Date(value).toLocaleDateString('fr-FR');
   }
 
-  onPageChange(event: CustomEvent<{ page: number }>) {
-    this.page = event.detail.page;
-    void this.load();
-  }
-
   render(): TemplateResult {
     return html`
       <div class="toolbar">
@@ -247,31 +229,30 @@ export class MembersPage extends LitElement {
                   </tbody>
                 </table>
               </div>
-              <app-pagination
-                page=${this.page}
-                total-pages=${this.totalPages}
-                total=${this.total}
-                @page-change=${this.onPageChange}
-              ></app-pagination>
             `
       }
 
       <app-dialog label=${this.editingId ? 'Éditer l’adhérent' : 'Ajouter un adhérent'} ?open=${this.dialogOpen} @wa-after-hide=${() => (this.dialogOpen = false)}>
         <form @submit=${this.submit}>
           ${this.formError ? html`<p class="alert alert-error">${this.formError}</p>` : ''}
+
           <app-field label="Nom" error=${this.fieldErrors.name ?? ''}>
             <input .value=${this.form.name ?? ''} @input=${(e: Event) => this.onInput(e, 'name')} />
           </app-field>
+
           <app-field label="Email" error=${this.fieldErrors.email ?? ''}>
             <input type="email" .value=${this.form.email ?? ''} @input=${(e: Event) => this.onInput(e, 'email')} />
           </app-field>
+
           <app-field label="Téléphone" error=${this.fieldErrors.phone ?? ''}>
             <input .value=${this.form.phone ?? ''} @input=${(e: Event) => this.onInput(e, 'phone')} />
           </app-field>
+
           <div class="row" style="justify-content: flex-end; margin-top: 20px;">
             <button type="button" class="btn btn-secondary" @click=${() => (this.dialogOpen = false)}>Annuler</button>
             <button type="submit" class="btn btn-primary">Enregistrer</button>
           </div>
+          
         </form>
       </app-dialog>
 
