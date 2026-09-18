@@ -109,27 +109,20 @@
   --cyan-1000: #091a1d;
   --border: 0 0 0 1px #edeff2, 0 0 2px 0 #0000001f;
   --shadow-s: 0 0 0 1px #191c210f, 0 1px 2px 0 #191c211f, 0 0 2px 0 #00000014;
-  --shadow-r:
-    0 0 0 1px #191c210f, 0 10px 15px -3px #191c211f, 0 5px 10px -2px #0000000f;
-  --shadow-m:
-    0 0 0 1px #191c210f, 0 15px 35px -5px #191c2133, 0 5px 15px 0 #00000014;
-  --tooltip:
-    0 0 1px 0 #0000003d, 0 15px 35px 0 #191c2126, 0 5px 15px 0 #00000014;
-  --shadow-l:
-    0 0 0 1px #191c210f, 0 30px 70px -10px #191c2133, 0 10px 30px 0 #0003;
+  --shadow-r: 0 0 0 1px #191c210f, 0 10px 15px -3px #191c211f, 0 5px 10px -2px #0000000f;
+  --shadow-m: 0 0 0 1px #191c210f, 0 15px 35px -5px #191c2133, 0 5px 15px 0 #00000014;
+  --tooltip: 0 0 1px 0 #0000003d, 0 15px 35px 0 #191c2126, 0 5px 15px 0 #00000014;
+  --shadow-l: 0 0 0 1px #191c210f, 0 30px 70px -10px #191c2133, 0 10px 30px 0 #0003;
   --toast:
-    0 0 1px 0 #ffffffb8, 0 15px 35px -5px #13171f66, inset 0 0 0 1px #0000003d,
-    0 5px 15px 0 #0003;
+    0 0 1px 0 #ffffffb8, 0 15px 35px -5px #13171f66, inset 0 0 0 1px #0000003d, 0 5px 15px 0 #0003;
   --input-active: 0 0 0 1px #191c2124, 0 1px 1px 0 #00000014;
   --input-hover: 0 0 0 1px #191c2147, 0 1px 1px 0 #00000024;
-  --input-focus:
-    0 0 0 4px #1f90ff66, 0 1px 1px 0 #00000014, 0 0 0 1px #191c2124;
+  --input-focus: 0 0 0 4px #1f90ff66, 0 1px 1px 0 #00000014, 0 0 0 1px #191c2124;
   --input-disabled: 0 0 0 1px #191c2114;
   --input-success: 0 0 0 1.5px #148436b8, 0 1px 1px 0 #0000001f;
   --input-warning: 0 0 0 1.5px #bd5302b8, 0 1px 1px 0 #0000001f;
   --input-error: 0 0 0 1px #d62a54b8, 0 1px 1px 0 #0000001f;
-  --input-focus-error:
-    0 0 0 4px #d62a5466, 0 1px 1px 0 #00000014, 0 0 0 1px #191c2124;
+  --input-focus-error: 0 0 0 4px #d62a5466, 0 1px 1px 0 #00000014, 0 0 0 1px #191c2124;
   --body-bg: var(--white);
   --tooltip-bg: var(--gray-800);
   --tooltip-color: var(--white);
@@ -195,8 +188,7 @@
   --button-gray-color-disabled: #fff;
   --button-gray-disabled: var(--gray-300);
   --button-secondary:
-    linear-gradient(0deg, #fff, #fff),
-    linear-gradient(180deg, #0000 0%, #00000008 100%);
+    linear-gradient(0deg, #fff, #fff), linear-gradient(180deg, #0000 0%, #00000008 100%);
   --button-secondary-color: var(--gray-700);
   --button-secondary-color-hover: var(--gray-1000);
   --button-secondary-hover: var(--gray-0);
@@ -222,21 +214,17 @@
   --button-link-disabled: transparent;
   --button-dotted: var(--gray-300);
   --primary-button-active: 0 0 0 1px #7e5aff, 0 1.5px 2px 0 #0000003d;
-  --primary-button-focus:
-    0 0 0 1px #7e5aff, 0 1.5px 2px 0 #0000003d, 0 0 0 4px #1f90ff66;
+  --primary-button-focus: 0 0 0 1px #7e5aff, 0 1.5px 2px 0 #0000003d, 0 0 0 4px #1f90ff66;
   --primary-button-disabled: 0 0 0 1px #987bff, 0 1px 1px 0 #00000014;
   --secondary-button-active: 0 0 0 1px #191c2124, 0 1.5px 2px 0 #0000001f;
-  --secondary-button-focus:
-    0 0 0 1px #191c2124, 0 1.5px 2px 0 #0000001f, 0 0 0 4px #1f90ff66;
+  --secondary-button-focus: 0 0 0 1px #191c2124, 0 1.5px 2px 0 #0000001f, 0 0 0 4px #1f90ff66;
   --secondary-button-disabled: 0 0 0 1px #191c2114, 0 1px 1px 0 #0000000a;
   --ghost-button-disabled: none;
   --link-button-disabled: none;
   --gray-button-active: 0 0 0 1px #4a505c, 0 1.5px 2px 0 #0000007a;
-  --gray-button-focus:
-    0 0 0 1px #323740, 0 1px 1px 0 #0000003d, 0 0 0 4px #1f90ff66;
+  --gray-button-focus: 0 0 0 1px #323740, 0 1px 1px 0 #0000003d, 0 0 0 4px #1f90ff66;
   --gray-button-disabled: 0 0 0 1px #a2a8b2, 0 1px 1px 0 #00000014;
   --danger-button-active: 0 0 0 1px #ed406b, 0 1.5px 2px 0 #0000003d;
-  --danger-button-focus:
-    0 0 0 1px #ed406b, 0 1.5px 2px 0 #0000003d, 0 0 0 4px #1f90ff66;
+  --danger-button-focus: 0 0 0 1px #ed406b, 0 1.5px 2px 0 #0000003d, 0 0 0 4px #1f90ff66;
   --danger-button-disabled: 0 0 0 1px #ed6386, 0 1px 1px 0 #00000014;
 }

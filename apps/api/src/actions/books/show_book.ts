@@ -7,11 +7,9 @@ import { Book } from '#repositories/book_repository';
 export default class ShowBook extends BaseAction {
   async asController(req: Request<{ id: string }>, res: Response) {
     const book = await this.handle(req.params.id);
-
     if (!book) {
       return res.status(404).json({ message: 'Book not found' });
     }
-
     return book;
   }
 
