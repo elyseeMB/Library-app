@@ -13,6 +13,11 @@ export async function registerRoutes(app: Express) {
   await loadRoute(api, () => import('#actions/authors/update_author'), [ensureJson]);
   await loadRoute(api, () => import('#actions/authors/destroy_author'));
 
+  /** Books */
+  await loadRoute(api, () => import('#actions/books/get_paginated_book'));
+  await loadRoute(api, () => import('#actions/books/show_book'));
   await loadRoute(api, () => import('#actions/books/store_book'), [ensureJson]);
+  await loadRoute(api, () => import('#actions/books/update_book'), [ensureJson]);
+  await loadRoute(api, () => import('#actions/books/destroy_book'));
   app.use('/api/v1', api);
 }

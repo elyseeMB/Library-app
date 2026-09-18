@@ -9,3 +9,4 @@ const schema = vine.object({
 });
 
 export const storeBookValidator = vine.create(schema);
+export const updateBookValidator = vine.create(schema.partial());

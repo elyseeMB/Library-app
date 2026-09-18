@@ -2,26 +2,28 @@ import type { Request, Response } from 'express';
 import { BaseAction } from '#actions/base_action';
 import { Delete } from '#config/decorators';
 import { isForeignKeyViolation } from '#helpers/database';
-import { Author } from '#repositories/author_repository';
+import { Book } from '#repositories/book_repository';
 
-@Delete('/authors/:id')
-export default class DestroyAuthor extends BaseAction {
+@Delete('/books/:id')
+export default class DestroyBook extends BaseAction {
   async asController(req: Request<{ id: string }>, res: Response) {
     try {
-      const author = await this.handle(req.params.id);
-      if (!author) {
-        return res.status(404).json({ message: 'Author not found' });
+      const book = await this.handle(req.params.id);
+
+      if (!book) {
+        return res.status(404).json({ message: 'Book not found' });
       }
-      return author;
+
+      return book;
     } catch (error) {
       if (isForeignKeyViolation(error)) {
-        return res.status(409).json({ message: 'Author has books' });
+        return res.status(409).json({ message: 'Book has active loans' });
       }
       throw error;
     }
   }
 
   async handle(id: string) {
-    return await Author.delete(id);
+    return await Book.delete(id);
   }
 }
