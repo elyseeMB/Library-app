@@ -5,7 +5,7 @@ import { Author } from '#repositories/author_repository';
 
 @Get('/authors')
 export default class GetAuthor extends BaseAction {
-  async asController(_req: Request, _res: Response) {
+  async asController(_: Request, _res: Response) {
     return await this.handle();
   }
 

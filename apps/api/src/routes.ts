@@ -19,5 +19,13 @@ export async function registerRoutes(app: Express) {
   await loadRoute(api, () => import('#actions/books/store_book'), [ensureJson]);
   await loadRoute(api, () => import('#actions/books/update_book'), [ensureJson]);
   await loadRoute(api, () => import('#actions/books/destroy_book'));
+
+  /** Members */
+  await loadRoute(api, () => import('#actions/members/get_paginated_member'));
+  await loadRoute(api, () => import('#actions/members/show_member'));
+  await loadRoute(api, () => import('#actions/members/store_member'), [ensureJson]);
+  await loadRoute(api, () => import('#actions/members/update_member'), [ensureJson]);
+  await loadRoute(api, () => import('#actions/members/destroy_member'));
+  await loadRoute(api, () => import('#actions/members/get_member_loans'));
   app.use('/api/v1', api);
 }
