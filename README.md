@@ -1,88 +1,132 @@
-Library API & Web
+# Library API & Web
 
-Monorepo de l’application de gestion de bibliothèque, regroupant le backend API et l’interface web dans une même base de code.
+Monorepo de l'application de gestion de bibliothèque, regroupant le **backend API** et l'**interface web** dans une même base de code.
 
-Le projet utilise pnpm Workspaces pour gérer les applications et packages, et Turborepo pour orchestrer les tâches du monorepo.
+Le projet utilise **pnpm workspaces** et **Turborepo** pour gérer les différentes applications et packages.
 
-Architecture
+## Architecture
 
+```text
 .
 ├── apps/
 │   ├── api/              # Backend REST
 │   └── frontend/         # Interface web
 │
 ├── packages/             # Packages partagés
-├── compose/              # Configuration des services locaux
-├── .github/              # GitHub Actions
-├── compose.yaml          # Services Docker locaux
+├── compose/              # Configuration Docker / services locaux
+├── .github/              # Workflows GitHub Actions
+├── compose.yaml          # Services de développement
 ├── template.yaml         # Infrastructure AWS SAM
 ├── wrangler.json         # Configuration Cloudflare
 ├── turbo.json            # Configuration Turborepo
-├── pnpm-workspace.yaml   # Configuration pnpm
+├── pnpm-workspace.yaml   # Configuration pnpm workspace
 └── package.json          # Configuration racine
+```
 
-Applications
+### Applications
 
-Application	Description	Documentation
-@root/api	Backend REST	README API
-@root/frontend	Interface web	README Frontend
+| Application      | Description                                                      | Documentation                                |
+| ---------------- | ---------------------------------------------------------------- | -------------------------------------------- |
+| `@root/api`      | API backend REST construite avec Express 5, TypeScript et Kysely | [README API](./apps/api/README.md)           |
+| `@root/frontend` | Interface web construite avec Lit, Web Components et Web Awesome | [README Frontend](./apps/frontend/README.md) |
 
-Stack
+## Stack globale
 
-Domaine	Technologies
-Backend	Node.js, Express 5, TypeScript, Kysely, PostgreSQL
-Frontend	Lit, Web Components, Web Awesome, Vite, TypeScript
-Monorepo	pnpm Workspaces, Turborepo
-Qualité	Biome
-Développement	Docker Compose
-Backend — déploiement	AWS Lambda, Docker, AWS SAM
-Frontend — déploiement	Cloudflare Pages, Wrangler
-CI/CD	GitHub Actions
+### Backend
 
-Installation
+* **Runtime** : Node.js
+* **Framework** : Express 5
+* **Langage** : TypeScript
+* **Base de données** : PostgreSQL
+* **Query builder** : Kysely
+* **Validation** : Vine
+* **Logs** : Pino / Pino-http
+* **Tests de génération de types DB** : kysely-codegen
+* **Conteneurisation** : Docker
+* **Déploiement** : AWS Lambda + AWS SAM
 
-Depuis la racine du monorepo :
+La logique métier du backend est organisée autour du pattern **Action**, avec une action représentant un cas d'usage et sa route HTTP.
 
+→ [Voir la documentation complète de l'API](./apps/api/README.md)
+
+### Frontend
+
+* **Web Components** : Lit
+* **UI kit** : Web Awesome
+* **Routing** : `@lit-labs/router`
+* **Build** : Vite
+* **Langage** : TypeScript
+* **Lint / format** : Biome
+* **Hébergement** : Cloudflare Pages
+
+→ [Voir la documentation complète du frontend](./apps/frontend/README.md)
+
+## Gestion du monorepo
+
+Le projet utilise **pnpm workspaces** pour gérer les dépendances et **Turborepo** pour orchestrer les tâches entre les différentes applications et packages.
+
+### Installation
+
+Depuis la racine du projet :
+
+```bash
 pnpm install
+```
 
-Les variables d’environnement sont définies dans .env.
+### Exécuter les tâches
 
-Un fichier .env.example est fourni comme référence :
+Les commandes peuvent être exécutées depuis la racine du monorepo avec les filtres pnpm :
 
-cp .env.example .env
-
-Développement local
-
-Les services nécessaires au développement local sont gérés avec Docker Compose :
-
-docker compose up -d
-
-Pour démarrer une application :
-
+```bash
 pnpm --filter @root/api dev
 pnpm --filter @root/frontend dev
+```
 
-Les commandes et configurations propres à chaque application sont documentées dans leurs README respectifs :
+Les tâches communes peuvent également être orchestrées avec Turborepo :
 
-* Backend API
-* Frontend
-
-Tâches du monorepo
-
-Les tâches communes peuvent être exécutées depuis la racine avec Turborepo :
-
+```bash
 pnpm turbo build
 pnpm turbo lint
+```
 
-Les filtres pnpm permettent également de cibler une application :
+## Développement local
 
-pnpm --filter @root/api <commande>
-pnpm --filter @root/frontend <commande>
+Le projet utilise Docker Compose pour les services nécessaires au développement local.
 
-Déploiement
+```bash
+docker compose up -d
+```
 
-Les applications sont déployées indépendamment.
+Puis installer les dépendances :
 
+```bash
+pnpm install
+```
+
+Chaque application possède son propre environnement et ses propres scripts.
+
+Consulter les documentations correspondantes pour les commandes spécifiques :
+
+* [Backend API](./apps/api/README.md)
+* [Frontend](./apps/frontend/README.md)
+
+## Variables d'environnement
+
+Les variables d'environnement sont définies dans un fichier `.env` à la racine du monorepo.
+
+Un fichier `.env.example` est fourni comme référence :
+
+```bash
+cp .env.example .env
+```
+
+Les variables spécifiques à chaque application sont documentées dans leur README respectif.
+
+## Déploiement
+
+Les deux applications sont déployées indépendamment :
+
+```text
                     Monorepo
                        │
              ┌─────────┴─────────┐
@@ -91,25 +135,10 @@ Les applications sont déployées indépendamment.
              │                   │
         AWS Lambda          Cloudflare Pages
         Docker + SAM            Wrangler
-             │
+             │                   │
         PostgreSQL
+```
 
-Backend
+## Licence
 
-L’API est déployée sur AWS Lambda sous forme d’image Docker avec AWS SAM.
-
-Le déploiement est automatisé par GitHub Actions.
-
-→ Documentation API
-
-Frontend
-
-Le frontend est buildé avec Vite puis déployé sur Cloudflare Pages avec Wrangler.
-
-Le déploiement est automatisé par GitHub Actions sur main.
-
-→ Documentation Frontend
-
-Licence
-
-Ce projet est distribué sous licence MIT. Voir LICENSE.
+Ce projet est distribué sous licence MIT. Voir [LICENSE](./LICENSE).
