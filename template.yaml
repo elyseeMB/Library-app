@@ -14,19 +14,44 @@ Resources:
       PackageType: Image
       Architectures:
         - x86_64
+      Environment:
+        Variables:
+          NODE_ENV: production
+          NEON_DATABASE_URL_PARAM: /library-api/prod/neon-database-url
+      Policies:
+        - SSMParameterReadPolicy:
+            ParameterName: library-api/prod/*
       Events:
         ApiRoot:
           Type: HttpApi
           Properties:
+            ApiId: !Ref HttpApi
             Path: /
             Method: ANY
-
         ApiProxy:
           Type: HttpApi
           Properties:
+            ApiId: !Ref HttpApi
             Path: /{proxy+}
             Method: ANY
     Metadata:
       Dockerfile: Dockerfile
       DockerContext: ./
       DockerTag: latest
+
+  HttpApi:
+    Type: AWS::Serverless::HttpApi
+    Properties:
+      CorsConfiguration:
+        AllowOrigins:
+          - "https://library.eembouz.com"
+        AllowMethods:
+          - GET
+          - POST
+          - PUT
+          - DELETE
+          - OPTIONS
+        AllowHeaders:
+          - Content-Type
+          - Authorization
+        AllowCredentials: true

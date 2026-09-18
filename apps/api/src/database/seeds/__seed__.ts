@@ -1,3 +1,4 @@
+import '#config/env';
 import { db } from '#config/database';
 import { authorsFactory } from '#database/factories/authors_factory';
 import { booksFactory } from '#database/factories/books_factory';

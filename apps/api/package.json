@@ -62,6 +62,14 @@
       "development": "./src/validators/*.js",
       "default": "./dist/validators/*.js"
     },
+    "#helpers/*": {
+      "development": "./src/helpers/*.js",
+      "default": "./dist/helpers/*.js"
+    },
+    "#middlewares/*": {
+      "development": "./src/middlewares/*.js",
+      "default": "./dist/middlewares/*.js"
+    },
     "#database/factories/*": {
       "development": "./src/database/factories/*.js",
       "default": "./dist/database/factories/*.js"
@@ -78,7 +86,9 @@
     ]
   },
   "dependencies": {
+    "@aws-sdk/client-ssm": "^3.1135.0",
     "@vinejs/vine": "^4.4.0",
+    "cors": "^2.8.6",
     "cross-env": "^10.1.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
@@ -95,6 +105,7 @@
     "@hot-hook/runner": "^1.0.0",
     "@root/biome-config": "workspace:*",
     "@root/tsconfig": "workspace:*",
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^26.4.0",
     "@types/pg": "^8.23.1",

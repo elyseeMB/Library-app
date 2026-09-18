@@ -25,6 +25,13 @@ export class BaseRepository<TB extends keyof DB> {
       .executeTakeFirst() as Promise<Selectable<DB[TB]> | undefined>;
   }
 
+  async all(db: Kysely<DB> = this.db): Promise<Selectable<DB[TB]>[]> {
+    const { table } = db.dynamic;
+    return db.selectFrom(table(this.table).as('t')).selectAll().execute() as Promise<
+      Selectable<DB[TB]>[]
+    >;
+  }
+
   async create(data: Insertable<DB[TB]>, db: Kysely<DB> = this.db): Promise<Selectable<DB[TB]>> {
     return db.insertInto(this.table).values(data).returningAll().executeTakeFirstOrThrow();
   }
@@ -33,19 +40,23 @@ export class BaseRepository<TB extends keyof DB> {
     id: string,
     data: Updateable<DB[TB]>,
     db: Kysely<DB> = this.db,
-  ): Promise<Selectable<DB[TB]>> {
+  ): Promise<Selectable<DB[TB]> | undefined> {
     const { table, ref } = db.dynamic;
     return db
       .updateTable(table(this.table).as('t'))
       .set(data as any)
       .where(ref('id'), '=', id)
       .returningAll()
-      .executeTakeFirstOrThrow() as Promise<Selectable<DB[TB]>>;
+      .executeTakeFirst() as Promise<Selectable<DB[TB]> | undefined>;
   }
 
-  async delete(id: string, db: Kysely<DB> = this.db): Promise<void> {
+  async delete(id: string, db: Kysely<DB> = this.db): Promise<Selectable<DB[TB]> | undefined> {
     const { table, ref } = db.dynamic;
-    await db.deleteFrom(table(this.table).as('t')).where(ref('id'), '=', id).execute();
+    return db
+      .deleteFrom(table(this.table).as('t'))
+      .where(ref('id'), '=', id)
+      .returningAll()
+      .executeTakeFirst() as Promise<Selectable<DB[TB]> | undefined>;
   }
 
   async softDelete(id: string, db: Kysely<DB> = this.db): Promise<void> {
