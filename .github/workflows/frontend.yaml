@@ -19,6 +19,8 @@ jobs:
           filter: "@root/frontend"
       - name: Build
         run: pnpm --filter @root/frontend build
+        env:
+          VITE_API_URL: ${{ vars.API_URL }}
       - name: Deploy
         run: pnpm --filter @root/frontend exec wrangler pages deploy dist --project-name=library-eembouz-com
         env:
