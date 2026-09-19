@@ -44,8 +44,12 @@ const NAV_ITEMS: NavItem[] = [
 
 /**
  * Racine de l'application : layout (sidebar + header) + routeur.
+ *
+ * @remarks
+ * Le routage repose sur `@lit-labs/router`, un package expérimental de Lit Labs dont l'API
+ * peut changer au fil des versions. Sa version est figée dans `package.json`.
  */
-@customElement('book-app')
+@customElement('layout-app')
 export class LayoutApp extends LitElement {
   static styles = css`
     :host {

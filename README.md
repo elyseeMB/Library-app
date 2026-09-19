@@ -25,10 +25,10 @@ Le projet utilise **pnpm workspaces** et **Turborepo** pour gérer les différen
 
 ### Applications
 
-| Application      | Description                                                      | Documentation                                |
-| ---------------- | ---------------------------------------------------------------- | -------------------------------------------- |
-| `@root/api`      | API backend REST construite avec Express 5, TypeScript et Kysely | [README API](./apps/api/README.md)           |
-| `@root/frontend` | Interface web construite avec Lit, Web Components et Web Awesome | [README Frontend](./apps/frontend/README.md) |
+| Application      | Description                                                      | URL                                             | Documentation                                |
+| ---------------- | ---------------------------------------------------------------- | ----------------------------------------------- | -------------------------------------------- |
+| `@root/api`      | API backend REST | [api.library.eembouz.com](https://api.library.eembouz.com/api/v1) | [README API](./apps/api/README.md)           |
+| `@root/frontend` | Interface web | [library.eembouz.com](https://library.eembouz.com)                | [README Frontend](./apps/frontend/README.md) |
 
 ## Stack globale
 
@@ -103,13 +103,6 @@ Puis installer les dépendances :
 pnpm install
 ```
 
-Chaque application possède son propre environnement et ses propres scripts.
-
-Consulter les documentations correspondantes pour les commandes spécifiques :
-
-* [Backend API](./apps/api/README.md)
-* [Frontend](./apps/frontend/README.md)
-
 ## Variables d'environnement
 
 Les variables d'environnement sont définies dans un fichier `.env` à la racine du monorepo.
@@ -119,8 +112,6 @@ Un fichier `.env.example` est fourni comme référence :
 ```bash
 cp .env.example .env
 ```
-
-Les variables spécifiques à chaque application sont documentées dans leur README respectif.
 
 ## Déploiement
 
@@ -138,6 +129,8 @@ Les deux applications sont déployées indépendamment :
              │                   │
         PostgreSQL
 ```
+
+
 
 ## Licence
 

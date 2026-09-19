@@ -8,6 +8,13 @@ const { Pool } = pg;
 import.meta.hot?.decline();
 
 const isProd = process.env.NODE_ENV === 'production';
+
+/**
+ * Récupère la chaîne de connexion à la base de données stockée dans AWS SSM Parameter Store.
+ *
+ * @returns La chaîne de connexion PostgreSQL (Neon DATABASE).
+ * @throws Si le paramètre est introuvable ou vide.
+ */
 async function getConnectionStringFromSSM(): Promise<string> {
   const ssm = new SSMClient({});
   const command = new GetParameterCommand({

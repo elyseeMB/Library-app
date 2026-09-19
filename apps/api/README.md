@@ -7,7 +7,7 @@ API backend construite avec **Express 5**, **TypeScript** et **Kysely** (query b
 - **Runtime** : Node.js (ESM natif)
 - **Framework** : Express 5
 - **Langage** : TypeScript
-- **Base de données** : PostgreSQL via [Kysely](https://kysely.dev/)
+- **Base de données** : PostgreSQL hébergé sur [Neon](https://neon.tech), via [Kysely](https://kysely.dev/)
 - **Validation** : [@vinejs/vine](https://vinejs.dev/)
 - **Logs** : Pino / Pino-http
 - **Upload de fichiers** : Multer + Sharp (traitement d'images)
@@ -95,9 +95,9 @@ pnpm install
 
 ## Base de données
 
-Le projet utilise **PostgreSQL** avec **Kysely** comme query builder typé. Les types de la base sont générés automatiquement dans `src/types/db.ts` via `kysely-codegen`, garantissant une cohérence stricte entre le schéma SQL et le code TypeScript.
+Le projet utilise **PostgreSQL**, hébergé sur **Neon**, avec **Kysely** comme query builder typé. Les types de la base sont générés automatiquement dans `src/types/db.ts` via `kysely-codegen`.
 
-Workflow typique pour la base de données :
+Workflow pour la base de données :
 
 ```bash
 pnpm db:migration   # Créer une migration
@@ -206,62 +206,7 @@ export async function registerRoutes(app: Express) {
 
 ## Schéma de base de données
 
-```mermaid
-erDiagram
-    authors ||--o{ books : writes
-    books ||--o{ loans : is_borrowed_in
-    members ||--o{ loans : makes
-    loans ||--o{ loan_history : tracks
-
-    authors {
-        uuid id PK
-        string name
-        string nationality
-        string email UK
-        string phone
-        text bio
-        string website
-        timestamp created_at
-        timestamp updated_at
-    }
-
-    books {
-        uuid id PK
-        string title
-        uuid author_id FK
-        int publication_year
-        string status
-        timestamp created_at
-        timestamp updated_at
-    }
-
-    members {
-        uuid id PK
-        string name
-        string email UK
-        string phone
-        timestamp created_at
-        timestamp updated_at
-    }
-
-    loans {
-        uuid id PK
-        uuid member_id FK
-        uuid book_id FK
-        timestamp borrowed_at
-        timestamp due_date
-        timestamp returned_at
-        timestamp created_at
-        timestamp updated_at
-    }
-
-    loan_history {
-        uuid id PK
-        uuid loan_id FK
-        string action
-        timestamp occurred_at
-    }
-```
+![Schéma de la base de données](../../diagram.svg)
 
 Le modèle repose sur cinq tables, toutes identifiées par un `uuid` en clé primaire :
 
