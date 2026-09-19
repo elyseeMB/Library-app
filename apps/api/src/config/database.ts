@@ -26,10 +26,9 @@ const connectionString = isProd ? await getConnectionStringFromSSM() : process.e
 
 const pool = new Pool({
   connectionString,
-  max: 20,
-  idleTimeoutMillis: 30_000,
-  connectionTimeoutMillis: 5_000,
-  ssl: isProd ? { rejectUnauthorized: false } : false,
+  max: isProd ? 3 : 10,
+  connectionTimeoutMillis: 10_000,
+  ssl: isProd,
 });
 
 pool.on('error', (err) => {
