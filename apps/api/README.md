@@ -206,7 +206,7 @@ export async function registerRoutes(app: Express) {
 
 ## Schéma de base de données
 
-![Schéma de la base de données](../../diagram.svg)
+![Schéma de la base de données](../../diagram.png)
 
 Le modèle repose sur cinq tables, toutes identifiées par un `uuid` en clé primaire :
 
