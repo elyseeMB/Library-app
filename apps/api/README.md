@@ -10,8 +10,6 @@ API backend construite avec **Express 5**, **TypeScript** et **Kysely** (query b
 - **Base de données** : PostgreSQL hébergé sur [Neon](https://neon.tech), via [Kysely](https://kysely.dev/)
 - **Validation** : [@vinejs/vine](https://vinejs.dev/)
 - **Logs** : Pino / Pino-http
-- **Upload de fichiers** : Multer + Sharp (traitement d'images)
-- **Stockage** : Flydrive
 - **Hot reload en dev** : hot-hook / hot-runner + tsx
 - **Lint / format** : Biome
 - **Tests de génération de types DB** : kysely-codegen
