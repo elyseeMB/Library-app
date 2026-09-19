@@ -1,4 +1,14 @@
-﻿#!/bin/sh
+#!/bin/sh
+#!/bin/sh
+# Script d'initialisation de la base de données en local, exécuté dans le shell
+# du conteneur Docker Postgres depuis /docker-entrypoint-initdb.d/.
+#
+# Variables :
+#   - POSTGRES_USER : admin
+#   - DB_USER       : utilisateur applicatif
+#   - DB_PASSWORD   : mot de passe de l'utilisateur
+#   - DB_NAME       : nom de la DB
+
 set -eu
 
 psql -v ON_ERROR_STOP=1 -U "$POSTGRES_USER" <<-EOF
