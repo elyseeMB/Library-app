@@ -1,5 +1,4 @@
 #!/bin/sh
-#!/bin/sh
 # Script d'initialisation de la base de données en local, exécuté dans le shell
 # du conteneur Docker Postgres depuis /docker-entrypoint-initdb.d/.
 #
