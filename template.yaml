@@ -42,6 +42,7 @@ Resources:
   HttpApi:
     Type: AWS::Serverless::HttpApi
     Properties:
+      DisableExecuteApiEndpoint: true
       Domain:
         DomainName: api.library.eembouz.com
         CertificateArn: arn:aws:acm:us-east-1:528049653207:certificate/077d8e4d-9992-46c5-b379-778b38e20a76
